@@ -20,10 +20,10 @@ import cv2
 
 print(tf.__version__)
 
-img_withmask_dir = './train/with_mask'
-img_witouthmask_dir = './train/without_mask'
+img_withmask_dir = './AI_Mask_Detector/train/with_mask'
+img_witouthmask_dir = './AI_Mask_Detector/train/without_mask'
 
-def_target_size = 150
+def_target_size = 128
 
 print(len(os.listdir(img_withmask_dir)))
 print(os.listdir(img_withmask_dir)[:10])
@@ -123,7 +123,7 @@ model.compile(optimizer='adam',
 
 model.fit(X_train, Y_train, epochs=5, validation_split=0.1)              
 
-#model.save('20210912.h5')
+model.save('20210912.h5')
 
 # 예측
 predictions = model.predict(X_test)

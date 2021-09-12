@@ -25,13 +25,13 @@ if not cap.isOpened():
 # with open('classification_classes_ILSVRC2012.txt', 'rt') as f:
 #     classNames = f.read().rstrip('\n').split('\n')
 
-model = tf.keras.models.load_model('20210912.h5')
+model = tf.keras.models.load_model('./AI_Mask_Detector/20210912.h5')
 
 # #Create probability model 
 probability_model = tf.keras.Sequential([model])
 
-width = 150
-height = 150
+width = 128
+height = 128
 
 while True:
     ret, frame = cap.read()
@@ -45,6 +45,11 @@ while True:
         rgb_tensor = tf.convert_to_tensor(resizeImg, dtype=tf.float32)
         rgb_tensor /= 255.
         rgb_tensor = tf.expand_dims(rgb_tensor , 0)
+        
+        # inputBlob = cv2.dnn.blobFromImage(frame, 1, (224, 224), (104, 117, 123))
+        # probability_model.setInput(inputBlob)
+        # prob = probability_model.forward()
+ 
         
         
         #cv2.imwrite('frame.jpg', frame)
