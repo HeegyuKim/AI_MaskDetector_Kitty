@@ -139,9 +139,15 @@ predictions = model.predict(X_test)
 #test_loss, test_acc = model.evaluate(X_test,  Y_test, verbose=2)
 #print('\n테스트 정확도:', test_acc)
 
+
+# 이미지 시각화 에러처리
+roofCnt = 8*10
+if len(X_test) < roofCnt:
+    roofCnt = len(X_test)
+
 # #이미지 시각화
 plt.figure(figsize=(10,10))
-for i in range(80):
+for i in range(roofCnt):
     plt.subplot(8,10,i+1)
     plt.xticks([])
     plt.yticks([])
