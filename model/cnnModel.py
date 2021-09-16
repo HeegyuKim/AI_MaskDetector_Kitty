@@ -1,12 +1,5 @@
 import tensorflow as tf
 from tensorflow import keras
-#from tensorflow.keras.datasets.fashion_mnist import load_data
-#from tensorflow.keras.models import Sequential, Model
-#from tensorflow.keras import models
-#from tensorflow.keras.layers import Dense, Input
-#from tensorflow.keras.optimizers import RMSprop
-#from tensorflow.keras.utils import plot_model
-
 from sklearn.model_selection import train_test_split
 
 import numpy as np
@@ -32,13 +25,15 @@ def preprocess_img(img_path, target_size):
     img = image.load_img(img_path, target_size=(target_size, target_size))
     #img = image.load_img(img_path, grayscale=True, target_size=(target_size, target_size))
 
-    img_tensor = image.img_to_array(img)
+    # plt.imshow(img, cmap=plt.cm.binary)
+    # plt.show()    
 
     #print(img_path)
 
-    # scaling into [0, 1]
-    img_tensor /= 255.
-    return img_tensor
+    rgb_tensor = tf.convert_to_tensor(img, dtype=tf.float32)
+    rgb_tensor /= 255.
+    return rgb_tensor
+    
 
 
 categories = ['mask','nomask']
@@ -65,13 +60,26 @@ y = np.array(y)
 print(y.shape) 
 
 
-X_train, X_test, Y_train,Y_test = train_test_split(x, y, test_size=0.2)
+X_train, X_test, Y_train,Y_test = train_test_split(x, y, test_size=0.1)
 
 print('X_train shape : ', X_train.shape)
 print('Y_train shape : ', Y_train.shape)
 
 print('X_test shape : ', X_test.shape)
 print('Y_test shape : ', Y_test.shape)
+
+
+# 내사진 테스트
+# img_test_me_dir = './AI_Mask_Detector/train/test_me'
+# test_x = []
+# for i in os.listdir(img_test_me_dir):
+#     img_path = os.path.join(img_test_me_dir, i)
+#     img_tensor = preprocess_img(img_path, def_target_size)
+#     test_x.append(img_tensor)
+
+# X_test = np.array(test_x)
+# print('X_test2 shape : ', X_test.shape)
+
 
 # model = keras.Sequential([
 #     keras.layers.Flatten(input_shape=(def_target_size, def_target_size, 3)),
@@ -123,7 +131,7 @@ model.compile(optimizer='adam',
 
 model.fit(X_train, Y_train, epochs=5, validation_split=0.1)              
 
-model.save('20210912.h5')
+#model.save('./AI_MASK_DETECTOR/model.h5')
 
 # 예측
 predictions = model.predict(X_test)
@@ -131,32 +139,15 @@ predictions = model.predict(X_test)
 #test_loss, test_acc = model.evaluate(X_test,  Y_test, verbose=2)
 #print('\n테스트 정확도:', test_acc)
 
-# test
-# img_name = '1-with-mask.jpg'
-# img_path = os.path.join(img_dir, img_name)
-# print(img_path)
 
-# img = image.load_img(img_path, target_size=(512, 512))
-# img_tensor = image.img_to_array(img)
-# print(img_tensor.shape)
-
-# # expand a dimension (3D -> 4D)
-# img_tensor = np.expand_dims(img_tensor, axis=0)
-# print(img_tensor.shape)
-
-# # scaling into [0, 1]
-# img_tensor /= 255.
-
-# print(img_tensor[0])
-
-# #이미지 시각화
-# plt.rcParams['figure.figsize'] = (10, 10) # set figure size
-# plt.imshow(image.array_to_img(x[0]))
-# plt.show()
+# 이미지 시각화 에러처리
+roofCnt = 8*10
+if len(X_test) < roofCnt:
+    roofCnt = len(X_test)
 
 # #이미지 시각화
 plt.figure(figsize=(10,10))
-for i in range(80):
+for i in range(roofCnt):
     plt.subplot(8,10,i+1)
     plt.xticks([])
     plt.yticks([])
