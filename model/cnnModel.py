@@ -73,15 +73,15 @@ print('Y_test shape : ', Y_test.shape)
 
 
 #내사진 테스트
-img_test_me_dir = './AI_Mask_Detector/train/test_me'
-test_x = []
-for i in os.listdir(img_test_me_dir):
-    img_path = os.path.join(img_test_me_dir, i)
-    img_tensor = preprocess_img(img_path)
-    test_x.append(img_tensor)
+# img_test_me_dir = './AI_Mask_Detector/train/test_me'
+# test_x = []
+# for i in os.listdir(img_test_me_dir):
+#     img_path = os.path.join(img_test_me_dir, i)
+#     img_tensor = preprocess_img(img_path)
+#     test_x.append(img_tensor)
 
-X_test = np.array(test_x)
-print('X_test2 shape : ', X_test.shape)
+# X_test = np.array(test_x)
+# print('X_test2 shape : ', X_test.shape)
 
 
 # model = keras.Sequential([
