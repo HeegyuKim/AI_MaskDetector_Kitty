@@ -1,10 +1,10 @@
 import cv2
 
 
-#model = 'res10_300x300_ssd_iter_140000_fp16.caffemodel'
-#config = 'deploy.prototxt'
-model = 'opencv_face_detector_uint8.pb'
-config = 'opencv_face_detector.pbtxt'
+model = './AI_Mask_Detector/res10_300x300_ssd_iter_140000_fp16.caffemodel'
+config = './AI_Mask_Detector/deploy.prototxt'
+#model = './AI_Mask_Detector/opencv_face_detector_uint8.pb'
+#config = './AI_Mask_Detector/opencv_face_detector.pbtxt'
 
 cap = cv2.VideoCapture(0)
 
