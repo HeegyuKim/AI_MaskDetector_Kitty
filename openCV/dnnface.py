@@ -29,6 +29,7 @@ while True:
         detect = detect[0, 0, :, :]
         (h, w) = frame.shape[:2]
 
+        #print('--------------------------')
         for i in range(detect.shape[0]):
             confidence = detect[i, 2]
             if confidence < 0.5:
@@ -40,6 +41,13 @@ while True:
             y2 = int(detect[i, 6] * h)
 
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0))
+
+            face = frame[y1:y2, x1:x2]
+            width, height, channel = face.shape
+
+            #print(x1, y1, x2, y2, width, height)
+            #cv2.imshow("frame1", face)
+            frame[0:width, 0:height] = face
 
             label = 'Face: %4.3f' % confidence
             cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
