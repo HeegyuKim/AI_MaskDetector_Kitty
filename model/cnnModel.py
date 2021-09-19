@@ -20,7 +20,7 @@ img_withmask_dir = './AI_Mask_Detector/train/with_mask'
 img_witouthmask_dir = './AI_Mask_Detector/train/without_mask'
 
 def_target_size = 64
-
+ 
 
 def preprocess_img(img_path):
     img = image.load_img(img_path, target_size=(def_target_size, def_target_size))
