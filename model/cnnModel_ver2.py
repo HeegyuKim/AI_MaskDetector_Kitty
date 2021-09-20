@@ -113,15 +113,14 @@ X_train, X_test, Y_train,Y_test = train_test_split(x, y, test_size=0.1)
 
 
 #내사진 테스트
-test_x.clear()
-img_test_me_dir = './AI_Mask_Detector/train/test_me'
-for i in os.listdir(img_test_me_dir):
-    img_path = os.path.join(img_test_me_dir, i)
-    img_tensor = preprocess_img(img_path, 0, True)
-    #test_x.append(img_tensor)
+# test_x.clear()
+# img_test_me_dir = './AI_Mask_Detector/train/test_me'
+# for i in os.listdir(img_test_me_dir):
+#     img_path = os.path.join(img_test_me_dir, i)
+#     img_tensor = preprocess_img(img_path, 0, True)
 
-X_test = np.array(test_x)
-print('X_test2 shape : ', X_test.shape)
+# X_test = np.array(test_x)
+# print('X_test2 shape : ', X_test.shape)
 
 
 Y_train = keras.utils.to_categorical(Y_train, 2)
