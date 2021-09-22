@@ -1,4 +1,10 @@
+from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input
 import tensorflow as tf
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
+
+
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
 
@@ -13,8 +19,8 @@ import cv2
 
 print(tf.__version__)
 
-img_withmask_dir = './AI_Mask_Detector/train/with_mask'
-img_witouthmask_dir = './AI_Mask_Detector/train/without_mask'
+img_withmask_dir = './train/with_mask'
+img_witouthmask_dir = './train/without_mask'
 
 def_target_size = 128
 
@@ -70,15 +76,15 @@ print('Y_test shape : ', Y_test.shape)
 
 
 # 내사진 테스트
-# img_test_me_dir = './AI_Mask_Detector/train/test_me'
-# test_x = []
-# for i in os.listdir(img_test_me_dir):
-#     img_path = os.path.join(img_test_me_dir, i)
-#     img_tensor = preprocess_img(img_path, def_target_size)
-#     test_x.append(img_tensor)
+img_test_me_dir = './train/test_me'
+test_x = []
+for i in os.listdir(img_test_me_dir):
+    img_path = os.path.join(img_test_me_dir, i)
+    img_tensor = preprocess_img(img_path, def_target_size)
+    test_x.append(img_tensor)
 
-# X_test = np.array(test_x)
-# print('X_test2 shape : ', X_test.shape)
+X_test = np.array(test_x)
+print('X_test2 shape : ', X_test.shape)
 
 
 # model = keras.Sequential([
@@ -110,28 +116,27 @@ print('Y_test shape : ', Y_test.shape)
 # outputs = keras.layers.Dense(2, activation='softmax')(h)
 # model = keras.Model(inputs=inputs, outputs=outputs)
 
-model = tf.keras.models.Sequential([
-  tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(def_target_size, def_target_size, 3)),
-  tf.keras.layers.MaxPooling2D(2,2),
-  tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
-  tf.keras.layers.MaxPooling2D(2,2),
-  tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
-  tf.keras.layers.MaxPooling2D(2,2),
-  tf.keras.layers.Flatten(),
-  tf.keras.layers.Dense(32, activation='relu'),
-  tf.keras.layers.Dense(2, activation='softmax')
-])
+def create_model():
+    base_model = InceptionV3(weights='imagenet', include_top=False)
+    x = base_model.output
+    x = GlobalAveragePooling2D()(x)
+    x = Dense(1024, activation='relu')(x)
+    predictions = Dense(2, activation='softmax')(x)
+    
+    model = Model(inputs=base_model.input, outputs=predictions)
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
+    for layer in base_model.layers:
+        layer.trainable = False
+        
+    return model
+
+model = create_model()
 print(model.summary())
 
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
-
-
 model.fit(X_train, Y_train, epochs=5, validation_split=0.1)              
-
-#model.save('./AI_MASK_DETECTOR/model.h5')
+model.save('./incep_model.h5')
+# model.load_weights('./incep_model.h5')
 
 # 예측
 predictions = model.predict(X_test)
@@ -146,7 +151,7 @@ if len(X_test) < roofCnt:
     roofCnt = len(X_test)
 
 # #이미지 시각화
-plt.figure(figsize=(10,10))
+plt.figure(figsize=(15,15))
 for i in range(roofCnt):
     plt.subplot(8,10,i+1)
     plt.xticks([])
@@ -155,10 +160,10 @@ for i in range(roofCnt):
     plt.imshow(X_test[i], cmap=plt.cm.binary)
 
     if predictions[i][0] > predictions[i][1]:
-        label = 'Mask'
+        label = 'Mask ' + str(int(predictions[i][0] * 100))
     else:
-        label = 'No Mask'
+        label = 'No Mask ' + str(int(predictions[i][1] * 100))
 
     plt.xlabel(label) 
     # plt.xlabel(categories[Y_train[i]])
-plt.show()
+plt.savefig("fig2.png")
