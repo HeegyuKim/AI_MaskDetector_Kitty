@@ -2,7 +2,7 @@ import tensorflow as tf
 
 from keras.preprocessing import image
 
-def preprocess_img(img_path, target_size):
+def preprocess_img(img_path, target_size=128):
     img = image.load_img(img_path, target_size=(target_size, target_size))
     rgb_tensor = tf.convert_to_tensor(img, dtype=tf.float32)
     rgb_tensor /= 255.
