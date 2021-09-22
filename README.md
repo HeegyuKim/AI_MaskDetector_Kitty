@@ -60,7 +60,7 @@ Weight & Biases Logging 를 사용하려면 `wandb login`을 통해 Wandb 계정
 python test.py
 ```
 테스트 결과가 test.png 파일로 저장됩니다.<br/>
-![test.png](img/test.png")
+![test.png](img/test.png)
 
 ### TODO
 - License
