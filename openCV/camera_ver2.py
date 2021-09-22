@@ -2,6 +2,7 @@ import cv2
 import tensorflow as tf
 from tensorflow import keras
 import matplotlib.pyplot as plt
+import numpy as np
 
 model = './AI_Mask_Detector/res10_300x300_ssd_iter_140000_fp16.caffemodel'
 config = './AI_Mask_Detector/deploy.prototxt'
@@ -10,10 +11,11 @@ config = './AI_Mask_Detector/deploy.prototxt'
 
 mask_model = tf.keras.models.load_model('./AI_Mask_Detector/model.h5')
 probability_model = tf.keras.Sequential([mask_model])
-width = 300
-height = 300
+width = 128
+height = 128
 
-cap = cv2.VideoCapture(0)
+#cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('./AI_Mask_Detector/test2.mp4')
 
 if not cap.isOpened():
     print('Camera open failed!')
@@ -25,11 +27,17 @@ if net.empty():
     print('Net open failed!')
     exit()
 
+categories = ['mask','none']
+print('len(categories) = ', len(categories))
+
 while True:
     ret, frame = cap.read()
     
     if ret:
-        blob = cv2.dnn.blobFromImage(frame, 1, (300, 300), (104, 177, 123))
+        # ?????? 변환하니 적중률이 올라감
+        img = cv2.cvtColor(frame, code=cv2.COLOR_BGR2RGB)
+
+        blob = cv2.dnn.blobFromImage(img, 1, (300, 300), (104, 177, 123))
         net.setInput(blob)
         detect = net.forward()
 
@@ -39,7 +47,7 @@ while True:
         #print('--------------------------')
         for i in range(detect.shape[0]):
             confidence = detect[i, 2]
-            if confidence < 0.5:
+            if confidence < 0.4:
                 break
 
             x1 = int(detect[i, 3] * w)
@@ -50,7 +58,7 @@ while True:
             #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0))
 
             margin = 0
-            face = frame[y1-margin:y2+margin, x1-margin:x2+margin]
+            face = img[y1-margin:y2+margin, x1-margin:x2+margin]
 
             resize = cv2.resize(face, (width , height))
 
@@ -65,28 +73,28 @@ while True:
             # 예측
             predictions = probability_model.predict(rgb_tensor)
 
+            
+
             # 화면 레이블
-            label = 'test'
+            #label = 'test'
+
+            #print(categories[predictions[i][1]], '  ' , np.argmax(predictions[i]))
+            #lebel = categories[predictions[i]]
+
             if predictions[0][0] > predictions[0][1]:
                 label = 'Mask ' + str(predictions[0][0])
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0))
+                cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1, cv2.LINE_AA)
             else:
                 label = 'No Mask ' + str(predictions[0][1])
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255))
+                cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 255), 1, cv2.LINE_AA)
 
             #print(predictions[0][0], '   ', predictions[0][1])
 
-    
-            cv2.putText(frame, label, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 1, cv2.LINE_AA)        
-            cv2.imshow('frame', frame)            
+        cv2.imshow('frame', frame)        
 
-
-            #frame[0:width, 0:height] = face
-
-            label = 'Face: %4.3f' % confidence
-            cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
-
-        #cv2.imshow('frame', frame)
-
-        if cv2.waitKey(1) == 27:
+        if cv2.waitKey(30) == 27:
             break
 
     else:
