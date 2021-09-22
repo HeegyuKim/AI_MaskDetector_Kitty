@@ -30,10 +30,11 @@ if not cap.isOpened():
 model = tf.keras.models.load_model('./AI_Mask_Detector/model.h5')
 
 # #Create probability model 
-probability_model = tf.keras.Sequential([model, keras.layers.Softmax()])
+#probability_model = tf.keras.Sequential([model, keras.layers.Softmax()])
+probability_model = tf.keras.Sequential([model])
 
-width = 128
-height = 128
+width = 64
+height = 64
 
 count = 0
 while True:
