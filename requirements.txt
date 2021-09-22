@@ -1,0 +1,8 @@
+tensorflow
+torch
+scikit-learn
+pillow
+numpy
+matplotlib
+opencv-python
+wandb

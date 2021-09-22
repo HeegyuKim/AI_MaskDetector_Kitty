@@ -1,4 +1,10 @@
+from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input
 import tensorflow as tf
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
+
+
 from tensorflow import keras
 # from keras.layers.convolutional import Conv2D
 # from keras.layers.convolutional import MaxPooling2D
@@ -16,8 +22,8 @@ import cv2
 
 print(tf.__version__)
 
-img_withmask_dir = './AI_Mask_Detector/train/with_mask'
-img_witouthmask_dir = './AI_Mask_Detector/train/without_mask'
+img_withmask_dir = './train/with_mask'
+img_witouthmask_dir = './train/without_mask'
 
 def_target_size = 64
  
@@ -71,7 +77,6 @@ print('Y_train shape : ', Y_train.shape)
 print('X_test shape : ', X_test.shape)
 print('Y_test shape : ', Y_test.shape)
 
-
 #내사진 테스트
 # img_test_me_dir = './AI_Mask_Detector/train/test_me'
 # test_x = []
@@ -79,39 +84,9 @@ print('Y_test shape : ', Y_test.shape)
 #     img_path = os.path.join(img_test_me_dir, i)
 #     img_tensor = preprocess_img(img_path)
 #     test_x.append(img_tensor)
-
+#
 # X_test = np.array(test_x)
 # print('X_test2 shape : ', X_test.shape)
-
-
-# model = keras.Sequential([
-#     keras.layers.Flatten(input_shape=(def_target_size, def_target_size, 3)),
-#     keras.layers.Dense(128, activation='relu'),
-#     keras.layers.Dense(64, activation='relu'),
-#     keras.layers.Dense(32, activation='relu'),
-#     keras.layers.Dense(2, activation='softmax')
-# ])
-
-# inputs = keras.Input(shape=(def_target_size, def_target_size, 3))
-# h = keras.layers.Flatten(inputs)
-# h = keras.layers.Dense(128)(h)
-# h = keras.layers.Activation('relu')(h)
-# h = keras.layers.Dense(128)(h)
-# h = keras.layers.Activation('relu')(h)
-# outputs = keras.layers.Dense(2)(h)
-# outputs = keras.layers.Activation('softmax')(outputs)
-
-# model = keras.Model(inputs=inputs, outputs=outputs)
-
-# inputs = keras.Input(shape=(def_target_size, def_target_size, 3))
-# h = keras.layers.Conv2D(filters=4, kernel_size=4, padding='same', activation='relu')(inputs)
-# h = keras.layers.MaxPooling2D(pool_size=(2, 2))(h)
-# h = keras.layers.Conv2D(filters=8, kernel_size=4, padding='same', activation='relu')(h)
-# h = keras.layers.MaxPooling2D(pool_size=(2, 2))(h)
-# h - keras.layers.Flatten()(h)
-# h = keras.layers.Dense(32, activation='relu')(h)
-# outputs = keras.layers.Dense(2, activation='softmax')(h)
-# model = keras.Model(inputs=inputs, outputs=outputs)
 
 # model = tf.keras.models.Sequential([
 #   tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(def_target_size, def_target_size, 3)),
@@ -158,7 +133,7 @@ if len(X_test) < roofCnt:
     roofCnt = len(X_test)
 
 # #이미지 시각화
-plt.figure(figsize=(10,10))
+plt.figure(figsize=(15,15))
 for i in range(roofCnt):
     plt.subplot(8,10,i+1)
     plt.xticks([])
@@ -167,9 +142,9 @@ for i in range(roofCnt):
     plt.imshow(X_test[i], cmap=plt.cm.binary)
 
     if predictions[i][0] > predictions[i][1]:
-        label = 'Mask'
+        label = 'Mask ' + str(int(predictions[i][0] * 100))
     else:
-        label = 'No Mask'
+        label = 'No Mask ' + str(int(predictions[i][1] * 100))
 
     plt.xlabel(label) 
     # plt.xlabel(categories[Y_train[i]])
