@@ -1,6 +1,8 @@
 import tensorflow as tf
 from tensorflow import keras
 from keras.callbacks import EarlyStopping
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
 from sklearn.model_selection import train_test_split
 
 import numpy as np
@@ -16,8 +18,8 @@ faceModel = './AI_Mask_Detector/res10_300x300_ssd_iter_140000_fp16.caffemodel'
 faceConfig = './AI_Mask_Detector/deploy.prototxt'
 img_withmask_dir = './AI_Mask_Detector/train/with_mask'
 img_witouthmask_dir = './AI_Mask_Detector/train/without_mask'
-def_target_size_x = 128
-def_target_size_y = 128
+def_target_size_x = 64
+def_target_size_y = 64
 
 net = cv2.dnn.readNet(faceModel, faceConfig)
  
@@ -50,7 +52,7 @@ def preprocess_img(img_path, y_Data, isTestMe = False):
 
     for i in range(detect.shape[0]):
         confidence = detect[i, 2]
-        if confidence < 0.5:
+        if confidence < 0.6:
             break
 
         x1 = int(detect[i, 3] * w)
@@ -121,8 +123,39 @@ print('Y_train shape : ', Y_train.shape)
 
 print('X_test shape : ', X_test.shape)
 print('Y_test shape : ', Y_test.shape)
- 
 
+# 학습데이터 회전
+train_datagen = ImageDataGenerator(
+    #rescale=1./255,
+    rotation_range=30,
+    shear_range=0.1,
+    zoom_range=0.1,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
+
+train_generator = train_datagen.flow(
+    x=X_train, y=Y_train,
+    batch_size=32,
+    shuffle=True
+)
+
+val_generator = train_datagen.flow(
+    x=X_test, y=Y_test,
+    batch_size=32,
+    shuffle=True
+)
+
+# 이미지 확인
+# augs = train_generator.__getitem__(8)
+# plt.figure(figsize=(16, 8))
+# for i, img in enumerate(augs[0]):
+#     plt.subplot(4, 8, i+1)
+#     #plt.title('%.2f' % augs[1][i])
+#     plt.axis('off')
+#     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+#     plt.imshow(img.squeeze())
+# plt.show()
 
 model = keras.models.Sequential()
 model.add(keras.layers.Conv2D(32, kernel_size=(3,3), activation='relu', input_shape=(def_target_size_x, def_target_size_y, 3)))
@@ -143,8 +176,10 @@ print(model.summary())
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 Early_stopping_callback = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=3)
-model.fit(X_train, Y_train, epochs=100, validation_split=0.1, callbacks=[Early_stopping_callback]) 
+
+#model.fit(X_train, Y_train, epochs=100, validation_split=0.1, callbacks=[Early_stopping_callback]) 
 #model.fit(X_train, Y_train, epochs=3, validation_split=0.1) 
+model.fit_generator(train_generator, epochs=100, validation_data = val_generator, callbacks=[Early_stopping_callback])
 
 model.save('./AI_MASK_DETECTOR/model.h5')
 

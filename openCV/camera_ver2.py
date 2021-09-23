@@ -11,11 +11,11 @@ config = './AI_Mask_Detector/deploy.prototxt'
 
 mask_model = tf.keras.models.load_model('./AI_Mask_Detector/model.h5')
 probability_model = tf.keras.Sequential([mask_model])
-width = 128
-height = 128
+width = 64
+height = 64
 
 #cap = cv2.VideoCapture(0)
-cap = cv2.VideoCapture('./AI_Mask_Detector/test2.mp4')
+cap = cv2.VideoCapture('./AI_Mask_Detector/demoVideo/test2.mp4')
 
 if not cap.isOpened():
     print('Camera open failed!')
@@ -34,9 +34,7 @@ while True:
     ret, frame = cap.read()
     
     if ret:
-        # ?????? 변환하니 적중률이 올라감
         img = cv2.cvtColor(frame, code=cv2.COLOR_BGR2RGB)
-
         blob = cv2.dnn.blobFromImage(img, 1, (300, 300), (104, 177, 123))
         net.setInput(blob)
         detect = net.forward()
@@ -63,7 +61,7 @@ while True:
             resize = cv2.resize(face, (width , height))
 
             #print(x1, y1, x2, y2, width, height)
-            cv2.imshow("frame1", resize)        
+            #cv2.imshow("frame1", resize)        
 
             #np_image_data = np.asarray(inp)
             rgb_tensor = tf.convert_to_tensor(resize, dtype=tf.float32)
@@ -74,21 +72,18 @@ while True:
             predictions = probability_model.predict(rgb_tensor)
 
             
-
-            # 화면 레이블
-            #label = 'test'
-
             #print(categories[predictions[i][1]], '  ' , np.argmax(predictions[i]))
             #lebel = categories[predictions[i]]
 
-            if predictions[0][0] > predictions[0][1]:
+            if predictions[0][0] > predictions[0][1]:# and predictions[0][0] > 0.7:
                 label = 'Mask ' + str(predictions[0][0])
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0))
-                cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 0), 1, cv2.LINE_AA)
-            else:
+                cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1, cv2.LINE_AA)
+            
+            if predictions[0][0] < predictions[0][1]:# and predictions[0][1] > 0.7:
                 label = 'No Mask ' + str(predictions[0][1])
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255))
-                cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
 
             #print(predictions[0][0], '   ', predictions[0][1])
 
