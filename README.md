@@ -101,8 +101,10 @@ in_cap.release()
 out_cap.release()
 ```
 
-![GIF](./img/test4.gif)
-cottonbro님의 동영상, 출처: Pexels
+![GIF](./img/test4.gif)<br/>
+cottonbro님의 동영상, 출처: Pexels<br/>
+![GIF](./img/test6.gif)<br/>
+Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
 ## Training
 #### 1. 학습 데이터 추가

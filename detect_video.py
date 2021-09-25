@@ -1,8 +1,8 @@
 import cv2
 from mask_detector import MaskDetector, OpenCVFaceDetector, FacenetDetector, MaskedFaceDrawer
 
-input_file = './demoVideo/test4.mp4'
-output_file = './demoVideo/test4_output.mp4'
+input_file = './demoVideo/test6.mp4'
+output_file = './demoVideo/test6_output.mp4'
 
 mask_detector_model_path = "./model.h5"
 opencv_model_path = './res10_300x300_ssd_iter_140000_fp16.caffemodel'
@@ -39,7 +39,7 @@ while True:
     out_cap.write(cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
     
     index += 1
-    if index % (fps * 10) == 0:
+    if index % (fps * 5) == 0:
         print(f"progressing {index} / {length}")
         
 in_cap.release()
