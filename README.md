@@ -1,6 +1,10 @@
 # Mask Detector
-이미지와 영상 속에서 사람 얼굴을 찾은 뒤 마스크 착용 여부를 판단해주는 기능을 제공합니다.
+이미지와 영상 속에서 사람 얼굴을 찾은 뒤 마스크 착용 여부를 판단해주는 기능을 제공합니다.<br/>
 
+![GIF](./img/test4.gif)<br/>
+cottonbro님의 동영상, 출처: Pexels<br/>
+
+Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
 
 ## Installation
 
@@ -101,8 +105,6 @@ in_cap.release()
 out_cap.release()
 ```
 
-![GIF](./img/test4.gif)<br/>
-cottonbro님의 동영상, 출처: Pexels<br/>
 ![GIF](./img/test6.gif)<br/>
 Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
@@ -137,7 +139,3 @@ python test.py
 ```
 테스트 결과가 test.png 파일로 저장됩니다.<br/>
 ![test.png](img/test.png)
-
-### TODO
-- License
-- Team 소개
