@@ -53,7 +53,7 @@ image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 cv2.imwrite("demoImage/" + image_output, image)
 ```
 
-![사진1](demoImage/detected-yoav-aziz-T4ciXluAvIE-unsplash)<br/>
+![사진1](demoImage/detected-yoav-aziz-T4ciXluAvIE-unsplash.jpg)<br/>
 Photo by <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yoav Aziz</a> on <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
 ![사진2](demoImage/detected-victor-he-UXdDfd9ma-E-unsplash.jpg)<br/>
 Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor He</a> on <a href="https://unsplash.com/s/photos/mask?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
