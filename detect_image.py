@@ -1,8 +1,8 @@
 import cv2
 from mask_detector import MaskDetector, FacenetDetector, OpenCVFaceDetector, MaskedFaceDrawer
 
-image_input = "victor-he-UXdDfd9ma-E-unsplash.jpg"
-# image_input = "yoav-aziz-T4ciXluAvIE-unsplash.jpg"
+# image_input = "victor-he-UXdDfd9ma-E-unsplash.jpg"
+image_input = "yoav-aziz-T4ciXluAvIE-unsplash.jpg"
 image_output = "detected-" + image_input
 
 mask_detector_model_path = "./model.h5"

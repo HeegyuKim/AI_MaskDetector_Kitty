@@ -54,10 +54,16 @@ class FacenetDetector:
     def __init__(self, size=64, margin=0, device="cpu"):
         self.mtcnn = MTCNN(image_size=size, margin=margin, keep_all=True, post_process=False, device=device)
         
-    def detect_faces(self, image, threshold=0.4):
+    def detect_faces(self, image, threshold=0.9):
         image = Image.fromarray(image)
         boxes, probs = self.mtcnn.detect(image, landmarks=False)
-                
+        if boxes is None:
+            return [], [], []
+            
+        filtered = [(box, p) for box, p in zip(boxes, probs) if p >= threshold]
+        boxes, probs = zip(*filtered)
+        boxes = np.stack(boxes, axis=0)
+        
         faces = self.mtcnn.extract(image, boxes, save_path=None)
         faces = torch.permute(faces, (0, 2, 3, 1)).numpy()
         

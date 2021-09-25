@@ -8,6 +8,8 @@
 
 ```bash
 pip install -r requirements.txt
+pip install facenet-pytorch # FacenetDetector를 사용하려면 설치
+pip install wandb # 학습에 wandb를 사용하려면 설치
 ```
 
 ## Usage
@@ -51,14 +53,56 @@ image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 cv2.imwrite("demoImage/" + image_output, image)
 ```
 
-![원본](demoImage/victor-he-UXdDfd9ma-E-unsplash.jpg)
-![표시된](demoImage/detected-victor-he-UXdDfd9ma-E-unsplash.jpg)
-Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor He</a> on <a href="https://unsplash.com/s/photos/mask?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+![사진1](demoImage/detected-yoav-aziz-T4ciXluAvIE-unsplash)<br/>
+Photo by <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yoav Aziz</a> on <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
+![사진2](demoImage/detected-victor-he-UXdDfd9ma-E-unsplash.jpg)<br/>
+Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor He</a> on <a href="https://unsplash.com/s/photos/mask?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
   
   
+#### 동영상에서 얼굴 찾아서 표시하고 저장하기([detect_video.py](detect_video.py))
+```python
+import cv2
+from mask_detector import MaskDetector, OpenCVFaceDetector, MaskedFaceDrawer
 
-#### 동영상에서 얼굴 찾아서 표시하고 저장하기
+input_file = './demoVideo/test1.mp4'
+output_file = './demoVideo/test1_output.mp4'
 
+mask_detector_model_path = "./model.h5"
+opencv_model_path = './res10_300x300_ssd_iter_140000_fp16.caffemodel'
+opencv_config_path = './deploy.prototxt'
+
+in_cap = cv2.VideoCapture(input_file)
+if not in_cap.isOpened(): 
+    print(f"파일을 열 수 없습니다: {input_file}")
+    exit(0)
+    
+width  = int(in_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(in_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+fps = int(in_cap.get(cv2.CAP_PROP_FPS))
+
+print('width, height, fps :', width, height, fps)
+
+out_cap = cv2.VideoWriter(output_file, 0x7634706d, int(fps), (int(width), int(height)))
+
+mask_detector = MaskDetector(mask_detector_model_path)
+face_detector = OpenCVFaceDetector(opencv_model_path, opencv_config_path)
+mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
+
+while True:
+    ret, frame = in_cap.read()
+    if not ret:
+        break
+
+    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    mask_drawer.rectangle_faces(image)
+    out_cap.write(cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
+    
+in_cap.release()
+out_cap.release()
+```
+
+![GIF](./img/test4.gif)
+cottonbro님의 동영상, 출처: Pexels
 
 ## Training
 #### 1. 학습 데이터 추가
