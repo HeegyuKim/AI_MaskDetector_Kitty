@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>806</width>
+    <height>502</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Mask Detecter for 해커톤</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="lbl_img">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>640</width>
+      <height>480</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>300</y>
+      <width>131</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#00aaff;&quot;&gt;Mask Detecter&lt;/span&gt;&lt;/p&gt;&lt;p&gt;팀 : 냐옹이&lt;/p&gt;&lt;p&gt;개발 : 김영수 김희규&lt;/p&gt;&lt;p&gt;멘토 : 임도형&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>30</y>
+      <width>141</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="btn_camera">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>101</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>카메라 켜기</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_av">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>101</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>동영상/사진</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_close">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>180</y>
+       <width>101</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>재생 종료</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <action name="action11111">
+   <property name="text">
+    <string>11111</string>
+   </property>
+  </action>
+  <action name="action222222">
+   <property name="text">
+    <string>222222</string>
+   </property>
+  </action>
+  <action name="action33333">
+   <property name="text">
+    <string>33333</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
