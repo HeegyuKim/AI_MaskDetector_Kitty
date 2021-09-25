@@ -1,73 +1,46 @@
 import cv2
-import tensorflow as tf
-from tensorflow import keras
-from facenet_pytorch import MTCNN
+from mask_detector import MaskDetector, OpenCVFaceDetector, FacenetDetector, MaskedFaceDrawer
 
-from model.hkmodel import SimpleCNNModel
-import numpy as np
-from PIL import Image, ImageDraw
+input_file = './demoVideo/test6.mp4'
+output_file = './demoVideo/test6_output.mp4'
 
-
-input_file = './demoVideo/test3.mp4'
-output_file = './movie_output.mp4'
+mask_detector_model_path = "./model.h5"
+opencv_model_path = './res10_300x300_ssd_iter_140000_fp16.caffemodel'
+opencv_config_path = './deploy.prototxt'
 
 in_cap = cv2.VideoCapture(input_file)
-
 if not in_cap.isOpened(): 
     print(f"파일을 열 수 없습니다: {input_file}")
     exit(0)
     
-width  = int(in_cap.get(cv2.CAP_PROP_FRAME_WIDTH))  # float `width`
-height = int(in_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))  # float `height`
+width  = int(in_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(in_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = int(in_cap.get(cv2.CAP_PROP_FPS))
+length = int(in_cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-print('width, height, fps :', width, height, fps)
-
+print('width, height, fps, length :', width, height, fps, length)
 
 out_cap = cv2.VideoWriter(output_file, 0x7634706d, int(fps), (int(width), int(height)))
-mtcnn = MTCNN(image_size=224, margin=0, keep_all=True, post_process=False, device='cpu')
 
-model = SimpleCNNModel()
-# model.compile(optimizer='adam', loss='sparse_c1ategorical_crossentropy', metrics=['accuracy'])
-model.build(input_shape = (None, 224, 224, 3))
-model.load_weights("model-best.h5")
+mask_detector = MaskDetector(mask_detector_model_path)
+# face_detector = OpenCVFaceDetector(opencv_model_path, opencv_config_path)
+face_detector = FacenetDetector()
+mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
 
+index = 0
 
 while True:
     ret, frame = in_cap.read()
     if not ret:
         break
 
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    mask_drawer.rectangle_faces(image)
+    out_cap.write(cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
     
-    boxes, probs = mtcnn.detect(Image.fromarray(frame), landmarks=False)
-    
-    
-    if boxes is not None:
-        try:
-            faces = [frame[int(y):int(h), int(x):int(w)] for x, y, w, h in boxes]
-            faces = [cv2.resize(face, (224, 224)) for face in faces]
-            faces = np.stack(faces, axis=0)
-            masks_prob = model.predict(faces)
-            masks = [x[1] > x[0] for x in masks_prob]
-            
-            for p, mask, box, fp in zip(masks_prob, masks, boxes, probs):
-                color = (0, 255, 0) if mask else (255, 0, 0)
-                
-                x1, y1 = int(box[0]), int(box[1])
-                x2, y2 = int(box[2]), int(box[3])
-                
-                label = 'Mask ' + str(p[1]) if mask else 'Face ' + str(p[0])
-                
-                cv2.rectangle(frame, (x1, y1), (x2, y2), color)
-                cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1, cv2.LINE_AA)
-                cv2.putText(frame, f"Face Prob: {fp}", (x1, y1 - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1, cv2.LINE_AA)
-                
-                # cv2.putText(frame_draw, label, (box[0], box[1] - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1, cv2.LINE_AA)
-        except Exception as e:
-            print(str(e))
+    index += 1
+    if index % (fps * 5) == 0:
+        print(f"progressing {index} / {length}")
         
-    out_cap.write(cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
-    
 in_cap.release()
 out_cap.release()

@@ -5,4 +5,3 @@ pillow
 numpy
 matplotlib
 opencv-python
-wandb
