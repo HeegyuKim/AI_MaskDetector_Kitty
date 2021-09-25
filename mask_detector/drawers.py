@@ -9,10 +9,7 @@ class MaskedFaceDrawer:
         
     def rectangle_faces(self, image, mask_color=(0,255,0), no_mask_color=(255,0,0), mask_threshold=0.5):
         
-        faces, confidences, boxes = self.face_detector.detect_faces(
-            image, 
-            resize=self.mask_detector.input_image_size
-            )
+        faces, confidences, boxes = self.face_detector.detect_faces(image)
             
         if len(faces) == 0:
             return
