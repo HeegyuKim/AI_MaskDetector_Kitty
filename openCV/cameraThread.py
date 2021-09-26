@@ -22,7 +22,7 @@ class CameraThread(QThread):
     width = 64
     height = 64
 
-    cap = cv2.VideoCapture()
+    cap = None
     Running = True
 
     fileName = 0
