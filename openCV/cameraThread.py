@@ -117,12 +117,12 @@ class CameraThread(QThread):
                     if predictions[0][0] > predictions[0][1]:# and predictions[0][0] > 0.7:
                         label = 'Mask ' + str(predictions[0][0])
                         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0))
-                        cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1, cv2.LINE_AA)
+                        cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1, cv2.LINE_AA)
                     
                     if predictions[0][0] < predictions[0][1]:# and predictions[0][1] > 0.7:
                         label = 'No Mask ' + str(predictions[0][1])
                         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255))
-                        cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
+                        cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 1, cv2.LINE_AA)
 
                     #print(predictions[0][0], '   ', predictions[0][1])
 
