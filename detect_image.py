@@ -21,7 +21,7 @@ mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
 
 
 def detect_image(input_file, output_file):
-    print(input_file, output_file)
+    print(input_file)
     
     image = cv2.imread(input_file)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -33,14 +33,13 @@ def detect_image(input_file, output_file):
     
 
 if __name__ == "__main__":
-    
-    if "output_file" not in res:
-        res.output_file = res.input_file + "-detected"
-        
     if os.path.isdir(res.input_file): 
         for file in os.listdir(res.input_file):
             if not os.path.exists(res.output_file):
                 os.makedirs(res.output_file)
             detect_image(os.path.join(res.input_file, file), os.path.join(res.output_file, file))
     else:
-        detect_image(res.input_file, res.output_file)
+        dir = os.path.dirname(os.path.abspath(res.output_file))
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+            detect_image(res.input_file, res.output_file)

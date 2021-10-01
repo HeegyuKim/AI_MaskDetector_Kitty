@@ -86,7 +86,13 @@ Everett Bumstead님의 동영상, 출처: Pexels<br/>
 1. [detect_video.py](detect_video.py)를 사용하기
 ```
 # video.mp4를 읽어서 분석 후 결과를 video-detected.mp4에 저장합니다.
-> python3 detect_video.py video.mp4 video-detected.mp4    
+> python3 detect_video.py video.mp4 video-detected.mp4
+
+# demoImage/ 폴더에 있는 파일들의 분석결과가 demoImage-detected-facenet/ 에 저장됩니다
+> python3 detect_video.py demoVideo/ demoVideo-detected-facenet/
+
+# detector에 opencv를 쓰고싶다면
+> python3 detect_video.py demoVideo/ demoVideo-detected-ocv/ --detector=opencv
 ```
 2. 코드에서 사용하기
 ```python
