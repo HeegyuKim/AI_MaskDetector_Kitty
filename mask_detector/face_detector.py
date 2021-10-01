@@ -61,6 +61,9 @@ class FacenetDetector:
             return [], [], []
             
         filtered = [(box, p) for box, p in zip(boxes, probs) if p >= threshold]
+        if len(filtered) == 0:
+            return [], [], []
+            
         boxes, probs = zip(*filtered)
         boxes = np.stack(boxes, axis=0)
         
