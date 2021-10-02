@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Mask Detecter for 해커톤</string>
+   <string>Mask Detector for 해커톤</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -43,7 +43,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#00aaff;&quot;&gt;Mask Detecter&lt;/span&gt;&lt;/p&gt;&lt;p&gt;팀 : 냐옹이&lt;/p&gt;&lt;p&gt;개발 : 김영수 김희규&lt;/p&gt;&lt;p&gt;멘토 : 임도형&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#00aaff;&quot;&gt;Mask Detector&lt;/span&gt;&lt;/p&gt;&lt;p&gt;팀 : 냐옹이&lt;/p&gt;&lt;p&gt;개발 : 김영수 김희규&lt;/p&gt;&lt;p&gt;멘토 : 임도형&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame">
