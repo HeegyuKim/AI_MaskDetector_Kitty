@@ -17,8 +17,27 @@ pip install wandb # 학습에 wandb를 사용하려면 설치
 ```
 
 ## Usage
-### 학습된 모델  사용하기
-#### 사진에서 얼굴 찾아서 표시하고 저장하기([detect_image.py](detect_image.py))
+### 학습된 모델 사용하기
+#### 사진에서 얼굴 찾아서 표시하고 저장하기
+
+![사진1](img/detected-yoav-aziz-T4ciXluAvIE-unsplash.jpg)<br/>
+Photo by <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yoav Aziz</a> on <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
+![사진2](img/detected-victor-he-UXdDfd9ma-E-unsplash.jpg)<br/>
+Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor He</a> on <a href="https://unsplash.com/s/photos/mask?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
+  
+1. [detect_image.py](detect_image.py)를 사용하기
+```
+# 파일 하나를 분석해서 저장함.
+> python3 detect_image.py image.jpg image-detected.jpg
+
+# demoImage/ 폴더에 있는 파일들의 분석결과가 demoImage-detected-facenet/ 에 저장됩니다
+> python3 detect_image.py demoImage/ demoImage-detected-facenet/
+
+# detector에 opencv를 쓰고싶다면
+> python3 detect_image.py demoImage/ demoImage-detected-ocv/ --detector=opencv
+```
+
+2. 코드에서 사용하기
 ```python
 import cv2
 from mask_detector import MaskDetector, FacenetDetector, OpenCVFaceDetector, MaskedFaceDrawer
@@ -56,14 +75,26 @@ mask_drawer.rectangle_faces(image)
 image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 cv2.imwrite("demoImage/" + image_output, image)
 ```
+  
+#### 동영상에서 얼굴 찾아서 표시하고 저장하기
 
-![사진1](demoImage/detected-yoav-aziz-T4ciXluAvIE-unsplash.jpg)<br/>
-Photo by <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yoav Aziz</a> on <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
-![사진2](demoImage/detected-victor-he-UXdDfd9ma-E-unsplash.jpg)<br/>
-Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor He</a> on <a href="https://unsplash.com/s/photos/mask?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
-  
-  
-#### 동영상에서 얼굴 찾아서 표시하고 저장하기([detect_video.py](detect_video.py))
+![GIF](./img/pexels-george.gif)<br/>
+George Morina님의 동영상, 출처: Pexels<br/>
+![GIF](./img/test6.gif)<br/>
+Everett Bumstead님의 동영상, 출처: Pexels<br/>
+
+1. [detect_video.py](detect_video.py)를 사용하기
+```
+# video.mp4를 읽어서 분석 후 결과를 video-detected.mp4에 저장합니다.
+> python3 detect_video.py video.mp4 video-detected.mp4
+
+# demoImage/ 폴더에 있는 파일들의 분석결과가 demoImage-detected-facenet/ 에 저장됩니다
+> python3 detect_video.py demoVideo/ demoVideo-detected-facenet/
+
+# detector에 opencv를 쓰고싶다면
+> python3 detect_video.py demoVideo/ demoVideo-detected-ocv/ --detector=opencv
+```
+2. 코드에서 사용하기
 ```python
 import cv2
 from mask_detector import MaskDetector, OpenCVFaceDetector, MaskedFaceDrawer
@@ -86,7 +117,7 @@ fps = int(in_cap.get(cv2.CAP_PROP_FPS))
 
 print('width, height, fps :', width, height, fps)
 
-out_cap = cv2.VideoWriter(output_file, 0x7634706d, int(fps), (int(width), int(height)))
+out_cap = cv2.VideoWriter(output_file, 0x7634706d, fps, (width, height))
 
 mask_detector = MaskDetector(mask_detector_model_path)
 face_detector = OpenCVFaceDetector(opencv_model_path, opencv_config_path)
@@ -104,9 +135,6 @@ while True:
 in_cap.release()
 out_cap.release()
 ```
-
-![GIF](./img/test6.gif)<br/>
-Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
 ## Training
 #### 1. 학습 데이터 추가
@@ -139,3 +167,8 @@ python test.py
 ```
 테스트 결과가 test.png 파일로 저장됩니다.<br/>
 ![test.png](img/test.png)
+
+
+## Datasets
+- LFW Face Database: http://vis-www.cs.umass.edu/lfw/
+- Real-World Masked Face Dataset，RMFD: https://github.com/X-zhangyang/Real-World-Masked-Face-Dataset
