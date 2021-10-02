@@ -54,6 +54,28 @@ class CameraThread(QThread):
         #print('camera terminate33')
 
 
+    def overlay(self, frame, nomaskIcon, pos):
+        if pos[0] < 0 or pos[1] < 0:
+            return
+
+        if pos[0] + nomaskIcon.shape[1] > frame.shape[1] or pos[1] + nomaskIcon.shape[0] > frame.shape[0]:
+            return
+
+        sx = pos[0]
+        ex = pos[0] + nomaskIcon.shape[1]
+        sy = pos[1]
+        ey = pos[1] + nomaskIcon.shape[0]
+
+        img1 = frame[sy:ey, sx:ex]  # shape=(h, w, 3)
+        img2 = nomaskIcon[:, :, 0:3]       # shape=(h, w, 3)
+        alpha = 1. - (nomaskIcon[:, :, 3] / 255.)  # shape=(h, w)
+        #ww = np.stack((alpha,)*3, axis=-1)
+
+        img1[:, :, 0] = (img1[:, :, 0] * alpha + img2[:, :, 0] * (1. - alpha)).astype(np.uint8)
+        img1[:, :, 1] = (img1[:, :, 1] * alpha + img2[:, :, 1] * (1. - alpha)).astype(np.uint8)
+        img1[:, :, 2] = (img1[:, :, 2] * alpha + img2[:, :, 2] * (1. - alpha)).astype(np.uint8)
+        #img1 = (img1 * ww + img2 * (1. - ww)).astype(np.uint8)
+
 
     def run(self):
         if self.fileName == 0:
@@ -74,6 +96,8 @@ class CameraThread(QThread):
 
         categories = ['mask','none']
         print('len(categories) = ', len(categories))
+
+        nomaskIcon = cv2.imread('./resource/ui/nomask.png', cv2.IMREAD_UNCHANGED)        
 
         while self.Running:
             ret, frame = self.cap.read()
@@ -115,13 +139,20 @@ class CameraThread(QThread):
                     #lebel = categories[predictions[i]]
 
                     if predictions[0][0] > predictions[0][1]:# and predictions[0][0] > 0.7:
-                        label = 'Mask ' + str(predictions[0][0])
-                        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0))
+                        label = 'Mask ' + str(round(predictions[0][0], 3))
+                        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), thickness=2)
                         cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1, cv2.LINE_AA)
                     
                     if predictions[0][0] < predictions[0][1]:# and predictions[0][1] > 0.7:
-                        label = 'No Mask ' + str(predictions[0][1])
-                        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255))
+
+                        # 아이콘 출력
+                        fx = (x2 - x1) / nomaskIcon.shape[1]
+                        cat2 = cv2.resize(nomaskIcon, (0, 0), fx=fx, fy=fx)
+                        pos = (x1, int(y1 - (y2 - y1) // 1.2))
+                        self.overlay(frame, cat2, pos)
+
+                        label = 'No Mask ' + str(round(predictions[0][1], 3))
+                        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255), thickness=2)
                         cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 1, cv2.LINE_AA)
 
                     #print(predictions[0][0], '   ', predictions[0][1])
