@@ -59,6 +59,7 @@ mask_drawer.rectangle_faces(image)
 ```
 MaskedFaceDrawer는 마스크를 썼다고 판단되는 얼굴 영역에는 초록 사각형을 그리며, 쓰지 않았다고 판단되는 얼굴 영역에는 붉은 사각형을 그립니다. 얼굴 위에는 얼굴 확신도와 마스크 착용 확률을 표시합니다.
 
+#### 결과물 예시
 ![사진1](resource/readme/detected-yoav-aziz-T4ciXluAvIE-unsplash.jpg)<br/>
 Photo by <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yoav Aziz</a> on <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
 ![사진2](resource/readme/detected-victor-he-UXdDfd9ma-E-unsplash.jpg)<br/>
@@ -70,7 +71,7 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 # 파일 하나를 분석해서 저장함.
 > python3 detect_image.py image.jpg image-detected.jpg
 
-# demoImage/ 폴더에 있는 파일들의 분석결과가 demoImage-detected-facenet/ 에 저장됩니다
+# images/ 폴더에 있는 파일들의 분석결과가 images-detected/ 에 저장됩니다
 > python3 detect_image.py images/ images-detected/
 
 # detector에 opencv를 쓰고싶다면
@@ -95,7 +96,7 @@ from mask_detector import FacenetDetector, MaskDetector
 mask_detector = MaskDetector()
 face_detector = FacenetDetector()
 ```
-3.프레임을 읽어와서 이미지를 분석할 때와 동일하게 사용합니다.
+3. 프레임을 읽어와서 이미지를 분석할 때와 동일하게 사용합니다.
 ```python3
 ret, frame = in_cap.read()
 if ret:
@@ -104,25 +105,25 @@ if ret:
     mask_probs = mask_detector.predict(faces)
 ```
 
-추가로 MaskedFaceDrawer를 활용한다면 아래와 같은 결과물을 생성할 수 있습니다.<br/>
-[동영상에서 마스크 쓴 얼굴을 찾아서 표시하고 저장하는 예제](examples/detect_video_masked_face.py)를 참고하여 직접 결과물을 만들거나, detect_video.py를 이용하여 기능을 확인할 수 있습니다.<br/>
-![GIF](./resource/readme/pexels-george.gif)<br/>
-George Morina님의 동영상, 출처: Pexels<br/>
-![GIF](./resource/readme/test6.gif)<br/>
-Everett Bumstead님의 동영상, 출처: Pexels<br/>
+### 영상에 마스크 쓴 사람과 안쓴 사람을 찾아 표시하고 저장하기
 
-### [detect_video.py](detect_video.py)를 사용하기
-커맨드 명령을 이용해 기능을 활용해볼 수 있습니다.
+OpenCV와 MaskedFaceDrawer를 활용한다면 가능합니다. [동영상에서 마스크 쓴 얼굴을 찾아서 표시하고 저장하는 예제](examples/detect_video_masked_face.py)를 참고하여 직접 결과물을 만들거나, detect_video.py를 이용하여 기능을 확인할 수 있습니다.<br/><br/>
+
 ```
 # video.mp4를 읽어서 분석 후 결과를 video-detected.mp4에 저장합니다.
 > python3 detect_video.py video.mp4 video-detected.mp4
 
-# demoImage/ 폴더에 있는 파일들의 분석결과가 demoImage-detected-facenet/ 에 저장됩니다
+# videos/ 폴더에 있는 파일들의 분석결과가 videos-detected/ 에 저장됩니다
 > python3 detect_video.py videos/ videos-detected/
 
 # detector에 opencv를 쓰고싶다면
 > python3 detect_video.py videos/ videos-detected/ --detector=opencv
 ```
+#### 결과물 예시
+![GIF](./resource/readme/pexels-george.gif)<br/>
+George Morina님의 동영상, 출처: Pexels<br/>
+![GIF](./resource/readme/test6.gif)<br/>
+Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
 ## Training
 #### 1. 학습 데이터 추가
