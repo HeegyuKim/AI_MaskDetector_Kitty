@@ -10,7 +10,7 @@ from openCV.cameraThread import CameraThread
 import cv2
 import time
 
-form_class = uic.loadUiType("./mainGUI.ui")[0] 
+form_class = uic.loadUiType("./resource/ui/mainGUI.ui")[0] 
 class WindowClass(QMainWindow, form_class): 
     th = CameraThread()
 
