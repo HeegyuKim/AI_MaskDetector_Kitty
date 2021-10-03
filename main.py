@@ -36,9 +36,12 @@ class WindowClass(QMainWindow, form_class):
     def btnCameraClick(self): 
         print("camera버튼이 클릭되었습니다.")
 
+        #region sample code
         #qPixmapVar = QPixmap()
         #qPixmapVar.load('./21.jpg')
         #self.lbl_img.setPixmap(qPixmapVar)
+        #endregion
+        
         self.th.terminate()
         self.play(0)
 

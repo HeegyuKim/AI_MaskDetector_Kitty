@@ -30,12 +30,12 @@ def_target_size = 64
 
 def preprocess_img(img_path):
     img = image.load_img(img_path, target_size=(def_target_size, def_target_size))
-    #img = image.load_img(img_path, grayscale=True, target_size=(def_target_size, def_target_size))
 
+    #region test
     # plt.imshow(img, cmap=plt.cm.binary)
     # plt.show()    
-
     #print(img_path)
+    #endregion
 
     rgb_tensor = tf.convert_to_tensor(img, dtype=tf.float32)
     rgb_tensor /= 255.
@@ -77,7 +77,7 @@ print('Y_train shape : ', Y_train.shape)
 print('X_test shape : ', X_test.shape)
 print('Y_test shape : ', Y_test.shape)
 
-#내사진 테스트
+#region 내사진 테스트
 # img_test_me_dir = './AI_Mask_Detector/train/test_me'
 # test_x = []
 # for i in os.listdir(img_test_me_dir):
@@ -99,6 +99,7 @@ print('Y_test shape : ', Y_test.shape)
 #   tf.keras.layers.Dense(128, activation='relu'),
 #   tf.keras.layers.Dense(2, activation='softmax')
 # ])
+#endregion
 
 
 model = keras.models.Sequential()

@@ -32,26 +32,9 @@ class CameraThread(QThread):
     def terminate(self):
         print('camera terminate')
         self.Running = False        
-        # for i in range(10):
-        #     time.sleep(0.1)   
-
-        #super().terminate()
 
         print('camera terminate11')
-        #if self.cap.isOpened() == True:
-            
-            #self.cap.release()
-        #    print('self.cap.release()')
-        
-        #print('camera destroyAllWindows')
-        #cv2.destroyAllWindows()	
 
-        #print('camera terminate22')
-        
-        #for i in range(5):
-        #    time.sleep(0.1)   
-        
-        #print('camera terminate33')
 
 
     def run(self):
@@ -88,7 +71,6 @@ class CameraThread(QThread):
 
                 detect = detect[0, 0, :, :]
 
-                #print('--------------------------')
                 for i in range(detect.shape[0]):
                     confidence = detect[i, 2]
                     if confidence < 0.4:
@@ -110,10 +92,6 @@ class CameraThread(QThread):
 
                     # 예측
                     predictions = self.probability_model.predict(rgb_tensor)
-
-                    
-                    #print(categories[predictions[i][1]], '  ' , np.argmax(predictions[i]))
-                    #lebel = categories[predictions[i]]
 
                     if predictions[0][0] > predictions[0][1]:# and predictions[0][0] > 0.7:
                         label = 'Mask ' + str(round(predictions[0][0], 3))
