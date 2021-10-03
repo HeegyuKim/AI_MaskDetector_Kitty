@@ -1,11 +1,11 @@
 wandb/
 train/test_me/
-demoImage-detected/
-demoImage-detected-facenet/
-demoImage-detected-ocv/
-demoVideo-detected/
-demoVideo-detected-ocv/
-demoVideo-detected-facenet/
+sample/image-detected/
+sample/image-detected-facenet/
+sample/image-detected-ocv/
+sample/video-detected/
+sample/video-detected-ocv/
+sample/video-detected-facenet/
 
 
 # Byte-compiled / optimized / DLL files
