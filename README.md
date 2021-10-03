@@ -11,21 +11,62 @@ Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김�
 패키지 매니저 [pip](https://pip.pypa.io/en/stable/) 를 이용해서 설치합니다.
 
 ```bash
+git clone https://github.com/osamhack2021/AI_MaskDetector_Kitty.git
+cd AI_MaskDetector_Kitty
 pip install -r requirements.txt
-pip install facenet-pytorch # FacenetDetector를 사용하려면 설치
-pip install wandb # 학습에 wandb를 사용하려면 설치
 ```
 
 ## Usage
-### 학습된 모델 사용하기
-#### 사진에서 얼굴 찾아서 표시하고 저장하기
+### 사진에서 마스크를 쓴 얼굴을 찾기
+전체 예제는 [예제](examples/detect_image_masked_face.py)를 참고하세요.
+1. 분석할 이미지를 로드합니다
+```python3
+import cv2
+image_path = "./resource/sample/image/pexels-gustavo-fring-4127449.jpg"
+image = cv2.imread(image_path)
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+```
+2. FacenetDetector 혹은 OpenCVFaceDetector 이용해서 이미지에서 얼굴을 찾습니다
+```python3
+from mask_detector import FacenetDetector, OpenCVFaceDetector
+face_detector = FacenetDetector()
+# face_detector = OpenCVFaceDetector()
+
+faces, confidences, boxes = face_detector.detect_faces(image)
+```
+3. MaskDetector를 이용해서 찾은 얼굴 이미지가 마스크를 썼는지 판별합니다.
+```python3
+from mask_detector import MaskDetector
+mask_detector = MaskDetector()
+mask_probs = mask_detector.predict(faces)
+
+print("마스크 쓴 확률", mask_probs) 
+> 마스크 쓴 확률 [0.99954575 0.99999905 0.9970963  0.9999945 ]
+```
+4. 결과를 출력합니다.
+마스크 쓴 확률이 0.5 이상일 경우 마스크를 쓰지 않았다고 가정하고 마스크를 쓴 사람이 몇명인지 판단합니다.
+```python3
+mask_count = sum(1 for p in mask_probs if p >= 0.5)
+print("마스크 쓴 사람은 총 {}명입니다.".format(mask_count))
+> 마스크 쓴 사람은 총 4명입니다
+```
+
+### MaskedFaceDrawer를 이용하여 사진에서 마스크 쓴 영역에 그림그리기
+```python3
+from mask_detector import MaskedFaceDrawer
+mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
+
+mask_drawer.rectangle_faces(image)
+```
+MaskedFaceDrawer는 마스크를 썼다고 판단되는 얼굴 영역에는 초록 사각형을 그리며, 쓰지 않았다고 판단되는 얼굴 영역에는 붉은 사각형을 그립니다. 얼굴 위에는 얼굴 확신도와 마스크 착용 확률을 표시합니다.
 
 ![사진1](resource/readme/detected-yoav-aziz-T4ciXluAvIE-unsplash.jpg)<br/>
 Photo by <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yoav Aziz</a> on <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
 ![사진2](resource/readme/detected-victor-he-UXdDfd9ma-E-unsplash.jpg)<br/>
 Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor He</a> on <a href="https://unsplash.com/s/photos/mask?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
   
-1. [detect_image.py](detect_image.py)를 사용하기
+### [detect_image.py](detect_image.py)를 사용하기
+파이썬 코드를 사용하지 않고 커맨드 명령을 이용해 기능을 활용해보는 방법도 있습니다.
 ```
 # 파일 하나를 분석해서 저장함.
 > python3 detect_image.py image.jpg image-detected.jpg
@@ -37,45 +78,6 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 > python3 detect_image.py images/ images-detected/ --detector=opencv
 ```
 
-2. 코드에서 사용하기
-```python
-import cv2
-from mask_detector import MaskDetector, FacenetDetector, OpenCVFaceDetector, MaskedFaceDrawer
-
-mask_detector_model_path = "./resource/model/model.h5"
-opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
-opencv_config_path = './resource/opencv/deploy.prototxt'
-
-# opencv 로 이미지를 읽는다. 기본 BGR이므로 RGB로 변경해야 한다.
-image = cv2.imread(image_input)
-image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
-# OpenCVFaceDetector 혹은 FacenetDetector를 이용해서 이미지에서 얼굴을 찾는다
-# face_detector = OpenCVFaceDetector(opencv_model_path, opencv_config_path)
-# faces, confidences, boxes = face_detector.detect_faces(image)
-face_detector = FacenetDetector()
-faces, confidences, boxes = face_detector.detect_faces(image)
-
-# faces: 찾은 얼굴 영역의 이미지 (기본 64x64로 변환됨)
-# confidences: 찾은 얼굴 영역의 확신도
-# boxes: 얼굴 영역의 좌표 리스트 (x1, y1, x2, y2)
-print("얼굴 개수, 확률, 영역", faces.shape, confidences, boxes)
-#  (2, 64, 64, 3), [0.998097   0.99991643] [[745 104 803 176] [444  71 502 141]]
-
-# MaskDetector를 이용해서 찾은 얼굴 이미지가 마스크를 썼는지 판별
-# 얼굴들의 확률를 리턴해줌
-mask_detector = MaskDetector(mask_detector_model_path)
-mask_probs = mask_detector.predict(faces)
-print("마스크 쓴 확률", mask_probs) # 결과 [1. 1.]
-
-# MaskedFaceDrawer는 이미지에서 얼굴을 찾아서 영역에 사각형을 그려준다.
-mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
-mask_drawer.rectangle_faces(image)
-
-image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-cv2.imwrite(image_output, image)
-```
-  
 #### 동영상에서 얼굴 찾아서 표시하고 저장하기
 
 ![GIF](./resource/readme/pexels-george.gif)<br/>

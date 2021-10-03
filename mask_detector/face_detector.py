@@ -4,11 +4,15 @@ from PIL import Image
 import torch
 import numpy as np
 
+default_opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
+default_opencv_config_path = './resource/opencv/deploy.prototxt'
 
 class OpenCVFaceDetector:
-    def __init__(self, model_path, config_path, resize=(64, 64)):
-        # model = './AI_Mask_Detector/res10_300x300_ssd_iter_140000_fp16.caffemodel'
-        # config = './AI_Mask_Detector/deploy.prototxt'
+    def __init__(self, 
+                model_path = default_opencv_model_path,
+                config_path = default_opencv_config_path, 
+                resize=(64, 64)
+                ):
         self.net = cv2.dnn.readNet(model_path, config_path)
         self.resize = resize
         
