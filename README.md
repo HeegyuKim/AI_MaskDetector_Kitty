@@ -77,14 +77,42 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 > python3 detect_image.py images/ images-detected/ --detector=opencv
 ```
 
-#### 동영상에서 얼굴 찾아서 표시하고 저장하기
+## 동영상에서 마스크 쓴 얼굴을 찾아보기
+1. OpenCV를 이용하여 동영상 혹은 카메라에서 불러올 준비를 합니다.
+```python3
+import cv2
 
+in_cap = cv2.VideoCapture(0) # 카메라에서 불러온다면
+# in_cap = cv2.VideoCapture("movie.mp4") # 파일에서 불러온다면
+
+if not in_cap.isOpened(): 
+    print(f"파일을 열 수 없습니다: {input_file}")
+    exit(0)
+```
+2. 분석에 필요한 MaskDetector와 FacenetDetector를 생성합니다.
+```python3
+from mask_detector import FacenetDetector, MaskDetector
+mask_detector = MaskDetector()
+face_detector = FacenetDetector()
+```
+3.프레임을 읽어와서 이미지를 분석할 때와 동일하게 사용합니다.
+```python3
+ret, frame = in_cap.read()
+if ret:
+    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    faces, confidences, boxes = face_detector.detect_faces(image)
+    mask_probs = mask_detector.predict(faces)
+```
+
+추가로 MaskedFaceDrawer를 활용한다면 아래와 같은 결과물을 생성할 수 있습니다.<br/>
+[동영상에서 마스크 쓴 얼굴을 찾아서 표시하고 저장하는 예제](examples/detect_video_masked_face.py)를 참고하여 직접 결과물을 만들거나, detect_video.py를 이용하여 기능을 확인할 수 있습니다.<br/>
 ![GIF](./resource/readme/pexels-george.gif)<br/>
 George Morina님의 동영상, 출처: Pexels<br/>
 ![GIF](./resource/readme/test6.gif)<br/>
 Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
-1. [detect_video.py](detect_video.py)를 사용하기
+### [detect_video.py](detect_video.py)를 사용하기
+커맨드 명령을 이용해 기능을 활용해볼 수 있습니다.
 ```
 # video.mp4를 읽어서 분석 후 결과를 video-detected.mp4에 저장합니다.
 > python3 detect_video.py video.mp4 video-detected.mp4
@@ -94,47 +122,6 @@ Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
 # detector에 opencv를 쓰고싶다면
 > python3 detect_video.py videos/ videos-detected/ --detector=opencv
-```
-2. 코드에서 사용하기
-```python
-import cv2
-from mask_detector import MaskDetector, OpenCVFaceDetector, MaskedFaceDrawer
-
-input_file = 'test.mp4'
-output_file = 'test_detected.mp4'
-
-mask_detector_model_path = "./resource/model/model.h5"
-opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
-opencv_config_path = './resource/opencv/deploy.prototxt'
-
-in_cap = cv2.VideoCapture(input_file)
-if not in_cap.isOpened(): 
-    print(f"파일을 열 수 없습니다: {input_file}")
-    exit(0)
-    
-width  = int(in_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(in_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-fps = int(in_cap.get(cv2.CAP_PROP_FPS))
-
-print('width, height, fps :', width, height, fps)
-
-out_cap = cv2.VideoWriter(output_file, 0x7634706d, fps, (width, height))
-
-mask_detector = MaskDetector(mask_detector_model_path)
-face_detector = OpenCVFaceDetector(opencv_model_path, opencv_config_path)
-mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
-
-while True:
-    ret, frame = in_cap.read()
-    if not ret:
-        break
-
-    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    mask_drawer.rectangle_faces(image)
-    out_cap.write(cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
-    
-in_cap.release()
-out_cap.release()
 ```
 
 ## Training
