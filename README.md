@@ -31,10 +31,10 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 > python3 detect_image.py image.jpg image-detected.jpg
 
 # demoImage/ 폴더에 있는 파일들의 분석결과가 demoImage-detected-facenet/ 에 저장됩니다
-> python3 detect_image.py demoImage/ demoImage-detected-facenet/
+> python3 detect_image.py images/ images-detected/
 
 # detector에 opencv를 쓰고싶다면
-> python3 detect_image.py demoImage/ demoImage-detected-ocv/ --detector=opencv
+> python3 detect_image.py images/ images-detected/ --detector=opencv
 ```
 
 2. 코드에서 사용하기
@@ -42,9 +42,9 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 import cv2
 from mask_detector import MaskDetector, FacenetDetector, OpenCVFaceDetector, MaskedFaceDrawer
 
-mask_detector_model_path = "./model.h5"
-opencv_model_path = './res10_300x300_ssd_iter_140000_fp16.caffemodel'
-opencv_config_path = './deploy.prototxt'
+mask_detector_model_path = "./resource/model/model.h5"
+opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
+opencv_config_path = './resource/opencv/deploy.prototxt'
 
 # opencv 로 이미지를 읽는다. 기본 BGR이므로 RGB로 변경해야 한다.
 image = cv2.imread(image_input)
@@ -73,7 +73,7 @@ mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
 mask_drawer.rectangle_faces(image)
 
 image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-cv2.imwrite("demoImage/" + image_output, image)
+cv2.imwrite(image_output, image)
 ```
   
 #### 동영상에서 얼굴 찾아서 표시하고 저장하기
@@ -89,22 +89,22 @@ Everett Bumstead님의 동영상, 출처: Pexels<br/>
 > python3 detect_video.py video.mp4 video-detected.mp4
 
 # demoImage/ 폴더에 있는 파일들의 분석결과가 demoImage-detected-facenet/ 에 저장됩니다
-> python3 detect_video.py demoVideo/ demoVideo-detected-facenet/
+> python3 detect_video.py videos/ videos-detected/
 
 # detector에 opencv를 쓰고싶다면
-> python3 detect_video.py demoVideo/ demoVideo-detected-ocv/ --detector=opencv
+> python3 detect_video.py videos/ videos-detected/ --detector=opencv
 ```
 2. 코드에서 사용하기
 ```python
 import cv2
 from mask_detector import MaskDetector, OpenCVFaceDetector, MaskedFaceDrawer
 
-input_file = './demoVideo/test1.mp4'
-output_file = './demoVideo/test1_output.mp4'
+input_file = 'test.mp4'
+output_file = 'test_detected.mp4'
 
-mask_detector_model_path = "./model.h5"
-opencv_model_path = './res10_300x300_ssd_iter_140000_fp16.caffemodel'
-opencv_config_path = './deploy.prototxt'
+mask_detector_model_path = "./resource/model/model.h5"
+opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
+opencv_config_path = './resource/opencv/deploy.prototxt'
 
 in_cap = cv2.VideoCapture(input_file)
 if not in_cap.isOpened(): 
