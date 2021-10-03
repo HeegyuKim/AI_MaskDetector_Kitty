@@ -25,7 +25,7 @@ image_path = "./resource/sample/image/pexels-gustavo-fring-4127449.jpg"
 image = cv2.imread(image_path)
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 ```
-2. FacenetDetector 혹은 OpenCVFaceDetector 이용해서 이미지에서 얼굴을 찾습니다
+2. FacenetDetector 혹은 OpenCVFaceDetector를 이용해서 이미지에서 얼굴을 찾습니다
 ```python3
 from mask_detector import FacenetDetector, OpenCVFaceDetector
 face_detector = FacenetDetector()
@@ -42,8 +42,7 @@ mask_probs = mask_detector.predict(faces)
 print("마스크 쓴 확률", mask_probs) 
 > 마스크 쓴 확률 [0.99954575 0.99999905 0.9970963  0.9999945 ]
 ```
-4. 결과를 출력합니다.
-마스크 쓴 확률이 0.5 이상일 경우 마스크를 쓰지 않았다고 가정하고 마스크를 쓴 사람이 몇명인지 판단합니다.
+4. 마스크 쓴 확률이 0.5 이상일 경우 마스크를 쓰지 않았다고 가정하고 마스크를 쓴 사람이 몇명인지 판단합니다.
 ```python3
 mask_count = sum(1 for p in mask_probs if p >= 0.5)
 print("마스크 쓴 사람은 총 {}명입니다.".format(mask_count))
@@ -125,6 +124,13 @@ George Morina님의 동영상, 출처: Pexels<br/>
 ![GIF](./resource/readme/test6.gif)<br/>
 Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
+## GUI 데모 실행하기
+카메라 혹은 동영상 파일을 선택하여 기능을 사용해볼 수 있는 GUI 데모가 포함되어있습니다. 아래 코드를 통해 실행해볼 수 있습니다.
+```bash
+# GUI 데모를 실행하기 위한 라이브러리를 설치한 이후에 실행해야합니다.
+> pip install -r requirements_demo.txt
+> python mask_detector_gui.py
+```
 ## Training
 #### 1. 학습 데이터 추가
 train/with_mask/ 폴더에는 마스크를 착용한 얼굴 사진을<br/>
