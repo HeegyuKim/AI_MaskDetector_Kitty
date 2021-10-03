@@ -4,9 +4,9 @@ import os
 from mask_detector import MaskDetector, FacenetDetector, OpenCVFaceDetector, MaskedFaceDrawer
 
 
-mask_detector_model_path = "./model.h5"
-opencv_model_path = './res10_300x300_ssd_iter_140000_fp16.caffemodel'
-opencv_config_path = './deploy.prototxt'
+mask_detector_model_path = "./resource/model/model.h5"
+opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
+opencv_config_path = './resource/opencv/deploy.prototxt'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input_file', help="분석할 이미지 파일 혹은 디렉터리를 입력하세요")

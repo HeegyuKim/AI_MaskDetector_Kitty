@@ -1,7 +1,7 @@
 # Mask Detector
 이미지와 영상 속에서 사람 얼굴을 찾은 뒤 마스크 착용 여부를 판단해주는 기능을 제공합니다.<br/>
 
-![GIF](./sample/readme/test4.gif)<br/>
+![GIF](./resource/readme/test4.gif)<br/>
 cottonbro님의 동영상, 출처: Pexels<br/>
 
 Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
@@ -20,9 +20,9 @@ pip install wandb # 학습에 wandb를 사용하려면 설치
 ### 학습된 모델 사용하기
 #### 사진에서 얼굴 찾아서 표시하고 저장하기
 
-![사진1](sample/readme/detected-yoav-aziz-T4ciXluAvIE-unsplash.jpg)<br/>
+![사진1](resource/readme/detected-yoav-aziz-T4ciXluAvIE-unsplash.jpg)<br/>
 Photo by <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yoav Aziz</a> on <a href="https://unsplash.com/@yoavaziz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
-![사진2](sample/readme/detected-victor-he-UXdDfd9ma-E-unsplash.jpg)<br/>
+![사진2](resource/readme/detected-victor-he-UXdDfd9ma-E-unsplash.jpg)<br/>
 Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor He</a> on <a href="https://unsplash.com/s/photos/mask?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a><br/>
   
 1. [detect_image.py](detect_image.py)를 사용하기
@@ -78,9 +78,9 @@ cv2.imwrite("demoImage/" + image_output, image)
   
 #### 동영상에서 얼굴 찾아서 표시하고 저장하기
 
-![GIF](./sample/readme/pexels-george.gif)<br/>
+![GIF](./resource/readme/pexels-george.gif)<br/>
 George Morina님의 동영상, 출처: Pexels<br/>
-![GIF](./sample/readme/test6.gif)<br/>
+![GIF](./resource/readme/test6.gif)<br/>
 Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
 1. [detect_video.py](detect_video.py)를 사용하기
@@ -166,7 +166,7 @@ Weight & Biases Logging 를 사용하려면 `wandb login`을 통해 Wandb 계정
 python test.py
 ```
 테스트 결과가 test.png 파일로 저장됩니다.<br/>
-![test.png](sample/readme/test.png)
+![test.png](resource/readme/test.png)
 
 
 ## Datasets
