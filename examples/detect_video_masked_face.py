@@ -1,11 +1,13 @@
 # 동영상 파일에서 사람 얼굴을 찾고 마스크 착용 여부에 따라 표시하여
 # 그 결과물을 다른 동영상 파일로 저장하는 예제입니다.
+# 아래 명령어를 통해 직접 실행해보세요
+# python -m examples.detect_video_masked_face.py 
 import cv2
 from mask_detector import MaskDetector, OpenCVFaceDetector, MaskedFaceDrawer
 
 
-input_file = 'test.mp4'
-output_file = 'test_detected.mp4'
+input_file = './resource/sample/video/pexels-steven-hause-5827569.mp4'
+output_file = './detected-pexels-steven-hause-5827569.mp4'
 
 
 # OpenCV를 이용하여 동영상에서 프레임을 읽어오겠습니다.
@@ -31,6 +33,7 @@ mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
 # 영상의 끝까지 프레임을 읽어옵니다.
 while True:
     ret, frame = in_cap.read()
+    # 더 이상 읽어올 게 없다면 끝
     if not ret:
         break
 
