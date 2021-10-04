@@ -12,12 +12,12 @@ import time
 class CameraThread(QThread):
     changePixmap = pyqtSignal(QImage)
 
-    model = './res10_300x300_ssd_iter_140000_fp16.caffemodel'
-    config = './deploy.prototxt'
-    #model = './opencv_face_detector_uint8.pb'
-    #config = './opencv_face_detector.pbtxt'
+    model = './resource/opencv_library/res10_300x300_ssd_iter_140000_fp16.caffemodel'
+    config = './resource/opencv_library/deploy.prototxt'
+    #model = './resource/opencv_library/opencv_face_detector_uint8.pb'
+    #config = './resource/opencv_library/opencv_face_detector.pbtxt'
 
-    mask_model = tf.keras.models.load_model('./model.h5')
+    mask_model = tf.keras.models.load_model('./resource/model/model.h5')
     probability_model = tf.keras.Sequential([mask_model])
     width = 64
     height = 64
@@ -57,7 +57,7 @@ class CameraThread(QThread):
         categories = ['mask','none']
         print('len(categories) = ', len(categories))
 
-        nomaskIcon = cv2.imread('./resource/ui/nomask.png', cv2.IMREAD_UNCHANGED)        
+        nomaskIcon = cv2.imread('./resource/image/nomask.png', cv2.IMREAD_UNCHANGED)        
 
         while self.Running:
             ret, frame = self.cap.read()

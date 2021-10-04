@@ -78,7 +78,7 @@
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>resource/UI/camerabutton.png</normaloff>resource/UI/camerabutton.png</iconset>
+       <normaloff>../image/camerabutton.png</normaloff>../image/camerabutton.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -104,7 +104,7 @@
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>resource/UI/videobutton.png</normaloff>resource/UI/videobutton.png</iconset>
+       <normaloff>../image/videobutton.png</normaloff>../image/videobutton.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -130,7 +130,7 @@
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>resource/UI/closebutton.png</normaloff>resource/UI/closebutton.png</iconset>
+       <normaloff>../image/closebutton.png</normaloff>../image/closebutton.png</iconset>
      </property>
      <property name="iconSize">
       <size>
