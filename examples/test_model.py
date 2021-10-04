@@ -43,4 +43,5 @@ for i, face, prob in zip(range(len(faces)), faces, probs):
 
     plt.xlabel(label) 
         
-plt.savefig("test.png")
+# plt.savefig("test.png")
+plt.show()
