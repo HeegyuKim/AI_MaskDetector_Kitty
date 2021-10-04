@@ -1,5 +1,5 @@
 # Mask Detector
-이미지와 영상 속에서 사람 얼굴을 찾은 뒤 마스크 착용 여부를 판단해주는 기능을 제공합니다.<br/>
+Mask Detector는 사진과 영상에서 마스크를 착용하지 않은 사람을 찾아 표시해주는 파이썬 어플리케이션 및 API를 제공합니다.<br/>
 
 ![GIF](./resource/readme/test4.gif)<br/>
 cottonbro님의 동영상, 출처: Pexels<br/>
@@ -15,7 +15,17 @@ cd AI_MaskDetector_Kitty
 pip install -r requirements.txt
 ```
 
-## 사용방법
+## GUI 어플리케이션 사용방법
+카메라 혹은 동영상 파일을 선택하여 기능을 사용해볼 수 있는 GUI 어플리케이션은 아래 코드를 통해 실행할 수 있습니다.
+```bash
+# GUI 어플리케이션를 실행하기 위한 라이브러리를 설치한 이후에 실행해야합니다.
+> pip install -r requirements_gui.txt
+> python mask_detector_gui.py
+```
+![GUI](./resource/readme/mask_detector_gui.png)<br/>
+실시간 카메라 버튼을 클릭하여 연결된 카메라로부터 마스크 탐지를 하거나 동영상 파일에서 마스크 팀지가 가능합니다.
+
+## API 사용방법
 ### 사진에서 마스크를 쓴 얼굴을 찾기
 전체 예제는 [예제](examples/detect_image_masked_face.py)를 참고하세요.
 1. 분석할 이미지를 로드합니다
@@ -124,14 +134,6 @@ George Morina님의 동영상, 출처: Pexels<br/>
 ![GIF](./resource/readme/test6.gif)<br/>
 Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
-## GUI 데모 실행하기
-카메라 혹은 동영상 파일을 선택하여 기능을 사용해볼 수 있는 GUI 데모가 포함되어있습니다. 아래 코드를 통해 실행해볼 수 있습니다.
-```bash
-# GUI 데모를 실행하기 위한 라이브러리를 설치한 이후에 실행해야합니다.
-> pip install -r requirements_demo.txt
-> python mask_detector_gui.py
-```
-![GUI](./resource/readme/mask_detector_gui.png)
 ## 모델 학습하기
 새로운 데이터를 확보하거나 다른 모델로 마스크 분류기를 직접 학습하고 싶을 경우 아래 문서와 예제를 참고한다면 쉽고 빠르게 학습할 수 있습니다.<br/>
 [모델학습 안내문서](./docs/TRAINING.md)
