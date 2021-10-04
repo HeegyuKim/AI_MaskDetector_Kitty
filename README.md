@@ -15,7 +15,7 @@ cd AI_MaskDetector_Kitty
 pip install -r requirements.txt
 ```
 
-## Usage
+## 사용방법
 ### 사진에서 마스크를 쓴 얼굴을 찾기
 전체 예제는 [예제](examples/detect_image_masked_face.py)를 참고하세요.
 1. 분석할 이미지를 로드합니다
@@ -131,8 +131,9 @@ Everett Bumstead님의 동영상, 출처: Pexels<br/>
 > pip install -r requirements_demo.txt
 > python mask_detector_gui.py
 ```
-## Training
-새로운 데이터를 확보하거나 다른 모델로 마스크 분류기를 직접 학습하고 싶을 경우 아래 예제를 참고한다면 쉽고 빠르게 학습할 수 있습니다.
+![GUI](./resource/readme/mask_detector_gui.png)
+## 모델 학습하기
+새로운 데이터를 확보하거나 다른 모델로 마스크 분류기를 직접 학습하고 싶을 경우 아래 문서와 예제를 참고한다면 쉽고 빠르게 학습할 수 있습니다.<br/>
 [모델학습 안내문서](./docs/TRAINING.md)
 
 ## Datasets
