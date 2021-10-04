@@ -5,12 +5,12 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QFileDia
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import QThread, Qt, pyqtSignal, pyqtSlot
 
-from mask_detector.opencv.cameraThread import CameraThread
+from source.opencv.camera_thread import CameraThread
 
 import cv2
 import time
 
-form_class = uic.loadUiType("./resource/ui/mainGUI.ui")[0] 
+form_class = uic.loadUiType("./resource/ui/main_gui.ui")[0] 
 class WindowClass(QMainWindow, form_class): 
     th = CameraThread()
 
@@ -26,7 +26,7 @@ class WindowClass(QMainWindow, form_class):
         
 
     def btnAvClick(self): 
-        print("av버튼이 클릭되었습니다.")
+        print("av btn.")
         self.th.terminate()
         
         fname = QFileDialog.getOpenFileName(self, 'Open File', '', 'Video File(*.avi *.mp4 *.mkv);; All File(*)')
@@ -34,7 +34,7 @@ class WindowClass(QMainWindow, form_class):
         self.play(fname[0])
 
     def btnCameraClick(self): 
-        print("camera버튼이 클릭되었습니다.")
+        print("camera btn")
 
         #region sample code
         #qPixmapVar = QPixmap()
@@ -46,9 +46,8 @@ class WindowClass(QMainWindow, form_class):
         self.play(0)
 
     def btnCloseClick(self): 
-        print("close버튼이 클릭되었습니다.")
+        print("close btn")
         self.th.terminate()
-        #time.sleep(1.5)  
 
         print("showLogo()")
         self.showLogo()   
@@ -66,7 +65,7 @@ class WindowClass(QMainWindow, form_class):
         self.show()  
 
     def showLogo(self):
-        self.lbl_img.setPixmap(PyQt5.QtGui.QPixmap("logo.png"))
+        self.lbl_img.setPixmap(PyQt5.QtGui.QPixmap("./resource/image/logo.png"))
 
 
 if __name__ == "__main__": 

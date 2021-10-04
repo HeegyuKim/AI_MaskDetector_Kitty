@@ -1,7 +1,9 @@
 import cv2
-from facenet_pytorch import MTCNN
+#임시
+#from facenet_pytorch import MTCNN
 from PIL import Image
-import torch
+#임시
+#import torch
 import numpy as np
 
 default_opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
@@ -85,7 +87,8 @@ class FacenetDetector(FaceDetector):
         boxes = np.stack(boxes, axis=0)
         
         faces = self.mtcnn.extract(image, boxes, save_path=None)
-        faces = torch.permute(faces, (0, 2, 3, 1)).numpy()
+        #임시
+        #faces = torch.permute(faces, (0, 2, 3, 1)).numpy()
         
         boxes = boxes.astype(np.int32) if boxes is not None else []
         return faces, probs, boxes
