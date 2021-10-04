@@ -21,7 +21,7 @@
 
 ## 2. 학습 데이터를 전처리합니다.
 효과적인 학습을 위해 학습 이미지에서 얼굴만을 추출하여 저장해야 합니다.<br/>
-[이미지 전처리 예제](./examples/preprocess_dataset.py)를 통해 사진에서 얼굴을 추출하고 별도 폴더에 저장합니다.
+[이미지 전처리 예제](../examples/preprocess_dataset.py)를 통해 사진에서 얼굴을 추출하고 별도 폴더에 저장합니다.
 ```python3
 > python -m examples.preprocess_dataset.py
 ./dataset/with_mask로부터 학습 데이터 생성 시작
@@ -34,18 +34,18 @@
 - dataset/train/1_face 에는 마스크를 쓰지 않은 얼굴 이미지가 저장됩니다.
 
 ## 3. 모델을 학습합니다.
-[모델 학습 예제(train_model.py)](./examples/train_model.py)에는 전처리된 데이터를 바탕으로 데이터 증강을 수행한 뒤 
+[모델 학습 예제(train_model.py)](../examples/train_model.py)에는 전처리된 데이터를 바탕으로 데이터 증강을 수행한 뒤 
 간단한 모델을 구현하고 학습합니다. 사용자가 다른 데이터 증강기법이나 모델, 추가적인 작업을 원하는 경우 예제를 수정하여 학습할 수  있습니다.
 ```python3
 > python -m examples.train_model.py
 ```
 
 ## 4. 테스트 세트로 모델 결과를 테스트합니다.
-[모델 테스트 예제(test_model.py)](examples/test_model.py)를 통해 
+[모델 테스트 예제(test_model.py)](../examples/test_model.py)를 통해 
 resource/sample/image 폴더 내의 이미지들을 가져와서 테스트를 수행하고 plot을 표시합니다. 
 다른 테스트 세트를 원할 경우 예제 내의 명시된 폴더를 변경하여 수행할 수 있습니다.
 ```python3
 > python -m examples.test_model.py
 ```
 아래는 테스트 결과 예시입니다.<br/>
-![test.png](./resource/readme/test.png)
+![test.png](../resource/readme/test.png)
