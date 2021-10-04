@@ -7,12 +7,22 @@ import numpy as np
 default_opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
 default_opencv_config_path = './resource/opencv/deploy.prototxt'
 
-class OpenCVFaceDetector:
+
+class FaceDetector(object):
+    
+    def detect_faces_from_file(self, image_path):
+        img = cv2.imread(image_path, flags=cv2.IMREAD_UNCHANGED)
+        img = cv2.cvtColor(img, code=cv2.COLOR_BGR2RGB)
+        return self.detect_faces(img)
+        
+
+class OpenCVFaceDetector(FaceDetector):
     def __init__(self, 
                 model_path = default_opencv_model_path,
                 config_path = default_opencv_config_path, 
                 resize=(64, 64)
                 ):
+        super(OpenCVFaceDetector, self).__init__()
         self.net = cv2.dnn.readNet(model_path, config_path)
         self.resize = resize
         
@@ -54,9 +64,12 @@ class OpenCVFaceDetector:
         return faces, confidences, boxes
         
 
-class FacenetDetector:
+class FacenetDetector(FaceDetector):
+    
     def __init__(self, size=64, margin=0, device="cpu"):
+        super(FacenetDetector, self).__init__()
         self.mtcnn = MTCNN(image_size=size, margin=margin, keep_all=True, post_process=False, device=device)
+        
         
     def detect_faces(self, image, threshold=0.9):
         image = Image.fromarray(image)

@@ -1,5 +1,9 @@
 wandb/
-train/test_me/
+
+dataset/test_me/
+dataset/train/
+dataset/test/
+
 resource/sample/image_detected/
 resource/sample/image_detected_facenet/
 resource/sample/image_detected_ocv/
