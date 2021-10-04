@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QFileDia
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import QThread, Qt, pyqtSignal, pyqtSlot
 
-from openCV.cameraThread import CameraThread
+from mask_detector.opencv.cameraThread import CameraThread
 
 import cv2
 import time
