@@ -133,7 +133,7 @@ Everett Bumstead님의 동영상, 출처: Pexels<br/>
 ```
 ## Training
 새로운 데이터를 확보하거나 다른 모델로 마스크 분류기를 직접 학습하고 싶을 경우 아래 예제를 참고한다면 쉽고 빠르게 학습할 수 있습니다.
-
+[모델학습 안내문서](./docs/TRAINING.md)
 
 ## Datasets
 - LFW Face Database: http://vis-www.cs.umass.edu/lfw/
