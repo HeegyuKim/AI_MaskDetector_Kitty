@@ -73,7 +73,7 @@ class CameraThread(QThread):
 
                 for i in range(detect.shape[0]):
                     confidence = detect[i, 2]
-                    if confidence < 0.4:
+                    if confidence < 0.2:
                         break
 
                     x1 = int(detect[i, 3] * w)
