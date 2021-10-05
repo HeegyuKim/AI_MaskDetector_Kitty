@@ -22,8 +22,9 @@ import cv2
 
 print(tf.__version__)
 
-img_withmask_dir = './train/with_mask'
-img_witouthmask_dir = './train/without_mask'
+root_dir = os.path.dirname(os.path.abspath('README.md'))
+img_withmask_dir = root_dir + '/dataset/with_mask'
+img_witouthmask_dir = root_dir + '/dataset/without_mask'
 
 def_target_size = 64
  
@@ -119,7 +120,7 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 
 model.fit(X_train, Y_train, epochs=10, validation_split=0.1)              
 
-model.save('./AI_MASK_DETECTOR/model.h5')
+model.save(root_dir + '/model.h5')
 
 # 예측
 predictions = model.predict(X_test)

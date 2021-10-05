@@ -1,10 +1,11 @@
 import cv2
+import os
 
+root_dir = os.path.dirname(os.path.abspath('README.md'))
 
-model = './AI_Mask_Detector/res10_300x300_ssd_iter_140000_fp16.caffemodel'
-config = './AI_Mask_Detector/deploy.prototxt'
-#model = './AI_Mask_Detector/opencv_face_detector_uint8.pb'
-#config = './AI_Mask_Detector/opencv_face_detector.pbtxt'
+model = root_dir + '/resource/opencv_library/res10_300x300_ssd_iter_140000_fp16.caffemodel'
+config = root_dir + '/resource/opencv_library/deploy.prototxt'
+
 
 cap = cv2.VideoCapture(0)
 
