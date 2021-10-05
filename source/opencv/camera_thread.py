@@ -23,7 +23,7 @@ class CameraThread(QThread):
     height = 64
 
     cap = None
-    Running = True
+    running = True
 
     fileName = 0
     def setPlayType(self, fileName = 0):
@@ -31,7 +31,7 @@ class CameraThread(QThread):
 
     def terminate(self):
         print('camera terminate')
-        self.Running = False        
+        self.running = False        
 
         print('camera terminate11')
 
@@ -59,7 +59,7 @@ class CameraThread(QThread):
 
         nomaskIcon = cv2.imread('./resource/image/nomask.png', cv2.IMREAD_UNCHANGED)        
 
-        while self.Running:
+        while self.running:
             ret, frame = self.cap.read()
             if ret:
                 img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -126,7 +126,7 @@ class CameraThread(QThread):
             else:
                 print('error : ', ret)
                 #동영상 실행이 끝났을때 처리
-                self.Running = False
+                self.running = False
 
         try:
             self.cap.release()

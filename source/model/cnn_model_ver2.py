@@ -14,14 +14,16 @@ import shutil
 from keras.preprocessing import image
 import cv2
 
-faceModel = './AI_Mask_Detector/res10_300x300_ssd_iter_140000_fp16.caffemodel'
-faceConfig = './AI_Mask_Detector/deploy.prototxt'
-img_withmask_dir = './AI_Mask_Detector/train/with_mask'
-img_witouthmask_dir = './AI_Mask_Detector/train/without_mask'
+root_dir = os.path.dirname(os.path.abspath('README.md'))
+
+face_model = root_dir + '/resource/opencv_library/res10_300x300_ssd_iter_140000_fp16.caffemodel'
+face_config = root_dir + '/resource/opencv_library/deploy.prototxt'
+img_withmask_dir = root_dir + '/dataset/with_mask'
+img_witouthmask_dir = root_dir + '/dataset/without_mask'
 def_target_size_x = 64
 def_target_size_y = 64
 
-net = cv2.dnn.readNet(faceModel, faceConfig)
+net = cv2.dnn.readNet(face_model, face_config)
  
 x = []
 y = []
@@ -181,7 +183,7 @@ Early_stopping_callback = EarlyStopping(monitor='val_loss', mode='min', verbose=
 #model.fit(X_train, Y_train, epochs=3, validation_split=0.1) 
 model.fit_generator(train_generator, epochs=100, validation_data = val_generator, callbacks=[Early_stopping_callback])
 
-model.save('./AI_MASK_DETECTOR/model.h5')
+model.save(root_dir + '/model.h5')
 
 # 예측
 predictions = model.predict(X_test)

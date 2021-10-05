@@ -13,24 +13,8 @@ if not cap.isOpened():
     print('Camera not found!')
     sys.exit()
 
-# Load network
-
-# net = cv2.dnn.readNet('20210910.model')
-
-# if net.empty():
-#     print('Network load failed!')
-#     exit()
-
-# Load class names
-
-# classNames = None
-# with open('classification_classes_ILSVRC2012.txt', 'rt') as f:
-#     classNames = f.read().rstrip('\n').split('\n')
-
 model = tf.keras.models.load_model('./AI_Mask_Detector/model.h5')
 
-# #Create probability model 
-#probability_model = tf.keras.Sequential([model, keras.layers.Softmax()])
 probability_model = tf.keras.Sequential([model])
 
 width = 64
@@ -43,18 +27,10 @@ while True:
     if ret:
         src = cv2.cvtColor(frame, code=cv2.COLOR_BGR2RGB)
         resizeImg = cv2.resize(src, (width , height))
-        
-        #np_image_data = np.asarray(inp)
+
         rgb_tensor = tf.convert_to_tensor(resizeImg, dtype=tf.float32)
         rgb_tensor /= 255.
         rgb_tensor = tf.expand_dims(rgb_tensor , 0)
-
-        #print(rgb_tensor.shape)
-        #print(rgb_tensor[0][0])
-
-
-        #plt.imshow(resizeImg, cmap=plt.cm.binary)
-        #plt.show()
 
         # 내사진 스캔 (테스트)
         # count = count + 1
