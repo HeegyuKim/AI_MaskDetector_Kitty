@@ -9,10 +9,9 @@
 
 구체적인 학습 과정을 알고 싶으시다면 예제 코드와 주석을 참고하세요.
 ## Installation
-
-학습 예제에 필요한 라이브러리를 다운로드 받습니다.
+학습 예제를 실행하는데 필요한 라이브러리(tqdm)를 다운로드 받습니다.
 ```bash
-> pip install -r requirements_training.txt
+> pip install tqdm
 ```
 ## 1. 학습 데이터를 준비합니다.
 - train/with_mask/ 폴더에는 마스크를 착용한 얼굴 사진이 필요합니다.
