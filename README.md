@@ -31,7 +31,7 @@ pip install -r requirements.txt
 1. 분석할 이미지를 로드합니다
 ```python3
 import cv2
-image_path = "./resource/sample/image/pexels-gustavo-fring-4127449.jpg"
+image_path = "./sample/image/pexels-gustavo-fring-4127449.jpg"
 image = cv2.imread(image_path)
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 ```
@@ -78,13 +78,13 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 파이썬 코드를 사용하지 않고 커맨드 명령을 이용해 기능을 활용해보는 방법도 있습니다.
 ```
 # 파일 하나를 분석해서 저장함.
-> python3 detect_image.py image.jpg image-detected.jpg
+> python -m mask_detector.detect_image image.jpg image-detected.jpg
 
 # images/ 폴더에 있는 파일들의 분석결과가 images-detected/ 에 저장됩니다
-> python3 detect_image.py images/ images-detected/
+> python -m mask_detector.detect_image images/ images-detected/
 
 # detector에 opencv를 쓰고싶다면
-> python3 detect_image.py images/ images-detected/ --detector=opencv
+> python -m mask_detector.detect_image images/ images-detected/ --detector=opencv
 ```
 
 ## 동영상에서 마스크 쓴 얼굴을 찾아보기
@@ -120,13 +120,13 @@ OpenCV와 MaskedFaceDrawer를 활용한다면 가능합니다. [동영상에서 
 
 ```
 # video.mp4를 읽어서 분석 후 결과를 video-detected.mp4에 저장합니다.
-> python3 detect_video.py video.mp4 video-detected.mp4
+> python -m mask_detector.detect_video video.mp4 video-detected.mp4
 
 # videos/ 폴더에 있는 파일들의 분석결과가 videos-detected/ 에 저장됩니다
-> python3 detect_video.py videos/ videos-detected/
+> python -m mask_detector.detect_video videos/ videos-detected/
 
 # detector에 opencv를 쓰고싶다면
-> python3 detect_video.py videos/ videos-detected/ --detector=opencv
+> python -m mask_detector.detect_video videos/ videos-detected/ --detector=opencv
 ```
 #### 결과물 예시
 ![GIF](./resource/readme/pexels-george.gif)<br/>

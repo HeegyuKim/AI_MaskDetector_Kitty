@@ -1,24 +1,7 @@
 import argparse
 import os
-
 import cv2
 from mask_detector import MaskDetector, OpenCVFaceDetector, FacenetDetector, MaskedFaceDrawer
-
-
-mask_detector_model_path = "./resource/model/model.h5"
-opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
-opencv_config_path = './resource/opencv/deploy.prototxt'
-
-parser = argparse.ArgumentParser()
-parser.add_argument('input_file', help="분석할 동영상 파일 혹은 디렉터리를 입력하세요")
-parser.add_argument('output_file', help="분석 결과를 저장할 파일 혹은 디렉토리를 입력하세요.")
-parser.add_argument('--detector', default="facenet", help="분석에 사용할 감지기를 고르세요(facenet, opencv)")
-res = parser.parse_args()
-    
-mask_detector = MaskDetector(mask_detector_model_path)
-face_detector = FacenetDetector() if res.detector == "facenet" \
-    else OpenCVFaceDetector(opencv_model_path, opencv_config_path) # opencv
-mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
 
 
 def detect_video(input_file, output_file):
@@ -59,6 +42,21 @@ def detect_video(input_file, output_file):
     
 
 if __name__ == "__main__":
+    mask_detector_model_path = "./resource/model/model.h5"
+    opencv_model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
+    opencv_config_path = './resource/opencv/deploy.prototxt'
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('input_file', help="분석할 동영상 파일 혹은 디렉터리를 입력하세요")
+    parser.add_argument('output_file', help="분석 결과를 저장할 파일 혹은 디렉토리를 입력하세요.")
+    parser.add_argument('--detector', default="facenet", help="분석에 사용할 감지기를 고르세요(facenet, opencv)")
+    res = parser.parse_args()
+        
+    mask_detector = MaskDetector(mask_detector_model_path)
+    face_detector = FacenetDetector() if res.detector == "facenet" \
+        else OpenCVFaceDetector(opencv_model_path, opencv_config_path) # opencv
+    mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
+    
     if os.path.isdir(res.input_file): 
         for file in os.listdir(res.input_file):
             if not os.path.exists(res.output_file):
