@@ -57,7 +57,7 @@ class CameraThread(QThread):
         categories = ['mask','none']
         print('len(categories) = ', len(categories))
 
-        nomaskIcon = cv2.imread('./resource/image/nomask.png', cv2.IMREAD_UNCHANGED)        
+        nomaskIcon = cv2.imread('./resource/image/remove_delete_close_1075.png', cv2.IMREAD_UNCHANGED)        
 
         while self.running:
             ret, frame = self.cap.read()
@@ -102,10 +102,10 @@ class CameraThread(QThread):
                         # 헤드업 디스플레이 출력
                         fx = (x2 - x1) / nomaskIcon.shape[1] * 0.7
                         cat2 = cv2.resize(nomaskIcon, (0, 0), fx=fx, fy=fx)
-                        pos = ((int(x1 + (x2 - x1)*0.15)), int(y1 - (y2 - y1) / 2))
+                        pos = ((int(x1 + (x2 - x1)*0.15)), int(y1 - (y2 - y1) / 1.8))
                         self.overlay(frame, cat2, pos)
 
-                        label = 'No Mask ' + str(round(predictions[0][1], 3))
+                        label = 'NoMask ' + str(round(predictions[0][1], 3))
                         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 255), thickness=2)
                         cv2.putText(frame, label, (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 1, cv2.LINE_AA)
 
