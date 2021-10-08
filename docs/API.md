@@ -1,10 +1,11 @@
 # API Documentation
 Mask Detector API를 사용하는 방법에 대한 안내입니다.
 
-## MaskDetector API
+## MaskDetector
 주어진 이미지 속 얼굴이 마스크를 썼는지를 판별하는 기능을 제공합니다.
 #### 생성자
 ```
+from mask_detector import MaskDetector
 MaskDetector(
     model_path="./resource/model/model.h5"
 )
@@ -50,6 +51,7 @@ FaceDetector는 사진 내에서 얼굴을 찾아서 반환하는 기능을 추�
 
 #### FacenetDetector
 ```
+from mask_detector import FacenetDetector
 FacenetDetector(
     size=64,
     margin=0,
@@ -63,6 +65,7 @@ FacenetDetector(
 #### OpenCVFaceDetector
 OpenCV 모델을 이용해서 이미지 내에서 얼굴을 찾아주는 클래스입니다.
 ```
+from mask_detector import OpenCVFaceDetector
 OpenCVFaceDetector(
     model_path = './resource/opencv/res10_300x300_ssd_iter_140000_fp16.caffemodel'
     config_path = './resource/opencv/deploy.prototxt',
@@ -113,4 +116,35 @@ faces, probs, boxes = face_detector.detect_faces_from_file("path_to_image.jpg", 
 # faces: np.array(3, 64, 64, 3)
 # probs: [0.99, 0.78, 0.85]
 # boxes: [(100, 100, 150, 150), (150, 150, 200, 200), (300, 300, 350, 350)]
+```
+
+
+## MaskedFaceDrawer
+주어진 이미지 속 얼굴이 마스크를 썼는지를 판별하는 기능을 제공합니다.
+#### 생성자
+```
+from mask_detector import MaskedFaceDrawer
+MaskedFaceDrawer(
+    mask_detector, 
+    face_detector
+)
+```
+- mask_detector: 얼굴이 마스크를 썼는지 판별할 MaskDetector 클래스 객체
+- face_detector: 사진에서 얼굴을 찾는데 사용할 FaceDetector 클래스 객체
+
+#### 메서드
+##### def rectangle_faces
+화면에서 얼굴을 찾아 사각형을 그리고 얼굴 확신도 및 마스크 착용 확률을 표시해줍니다. 마스크 착용 여부에 따라 다른 색상으로 표시합니다.
+###### parameters
+- image: 얼굴을 찾아서 표시할 numpy array 이미지 (width, height, 3)
+- mask_color(int, int, int): 마스크를 쓴 얼굴에 표시할 사각형 및 텍스트 색깔, 기본값 초록색(0,255,0).
+- no_mask_color(int, int, int): 마스크를 쓰지 않은 얼굴에 표시할 사각형 및 텍스트 색깔, 기본색 빨강색 (255,0,0).
+- mask_threshold(float): MaskDetector의 판별 결과가 `mask_threshold`보다 크면 마스크를 쓴 걸로 간주합니다. 기본 0.5
+- draw_text(bool): 이미지에 얼굴 확신도 및 마스크 판별 확률을 그릴건지 지정합니다. 기본 True
+
+###### example
+```
+from mask_detector import MaskedFaceDrawer
+mask_drawer = MaskedFaceDrawer(mask_detector, face_detector)
+mask_drawer.rectangle_faces(image)
 ```

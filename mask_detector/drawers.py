@@ -7,7 +7,14 @@ class MaskedFaceDrawer:
         self.mask_detector = mask_detector
         self.face_detector = face_detector
         
-    def rectangle_faces(self, image, mask_color=(0,255,0), no_mask_color=(255,0,0), mask_threshold=0.5):
+    def rectangle_faces(
+        self, 
+        image, 
+        mask_color=(0,255,0), 
+        no_mask_color=(255,0,0), 
+        mask_threshold=0.5,
+        draw_text=True
+        ):
         
         faces, confidences, boxes = self.face_detector.detect_faces(image)
             
@@ -22,6 +29,8 @@ class MaskedFaceDrawer:
             color = mask_color if mask_prob > mask_threshold else no_mask_color
             
             cv2.rectangle(image, (x1, y1), (x2, y2), color)
-            cv2.putText(image, f"Mask Probability: {mask_prob:.2f}", (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1, cv2.LINE_AA)
-            cv2.putText(image, f"Face Confidence: {conf:.2f}", (x1, y1 - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1, cv2.LINE_AA)
+            
+            if draw_text:
+                cv2.putText(image, f"Mask Probability: {mask_prob:.2f}", (x1, y1 - 1), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1, cv2.LINE_AA)
+                cv2.putText(image, f"Face Confidence: {conf:.2f}", (x1, y1 - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1, cv2.LINE_AA)
         
