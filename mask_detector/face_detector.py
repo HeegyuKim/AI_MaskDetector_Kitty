@@ -9,28 +9,32 @@ default_opencv_config_path = './resource/opencv/deploy.prototxt'
 
 
 class FaceDetector(object):
+    def detect_faces(self, image, threshold):
+        pass
     
-    def detect_faces_from_file(self, image_path):
+    def detect_faces_from_file(self, image_path, **kwargs):
         img = cv2.imread(image_path, flags=cv2.IMREAD_UNCHANGED)
         img = cv2.cvtColor(img, code=cv2.COLOR_BGR2RGB)
-        return self.detect_faces(img)
+        return self.detect_faces(img, **kwargs)
         
 
 class OpenCVFaceDetector(FaceDetector):
     def __init__(self, 
                 model_path = default_opencv_model_path,
                 config_path = default_opencv_config_path, 
-                resize=(64, 64)
+                resize=(64, 64),
+                margin=0
                 ):
         super(OpenCVFaceDetector, self).__init__()
         self.net = cv2.dnn.readNet(model_path, config_path)
         self.resize = resize
+        self.margin = margin
         
         if self.net.empty():
             raise Exception("opencv face detector net is empty")
             
-    def detect_faces(self, image, threshold=0.4, margin=0):
-        
+    def detect_faces(self, image, threshold=0.4):
+        margin = self.margin
         blob = cv2.dnn.blobFromImage(image, 1, (300, 300), (104, 177, 123))
         self.net.setInput(blob)
         
@@ -85,7 +89,6 @@ class FacenetDetector(FaceDetector):
         boxes = np.stack(boxes, axis=0)
         
         faces = self.mtcnn.extract(image, boxes, save_path=None)
-        #임시
         faces = torch.permute(faces, (0, 2, 3, 1)).numpy()
         
         boxes = boxes.astype(np.int32) if boxes is not None else []
