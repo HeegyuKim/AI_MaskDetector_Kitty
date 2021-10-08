@@ -6,4 +6,6 @@ numpy
 matplotlib
 opencv-python
 pytest
-PyQt5
+pyqt5
+pyqt5-tools
+facenet-pytorch
