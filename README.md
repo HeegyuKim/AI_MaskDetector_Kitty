@@ -16,16 +16,15 @@ pip install -r requirements.txt
 ```
 
 ## GUI 어플리케이션 사용방법
-카메라 혹은 동영상 파일을 선택하여 기능을 사용해볼 수 있는 GUI 어플리케이션은 아래 코드를 통해 실행할 수 있습니다.
+카메라 혹은 동영상 파일을 선택하여 기능을 사용해볼 수 있는 GUI 어플리케이션은 run.app.py를 실행하여 사용할 수 있습니다.
 ```bash
-# GUI 어플리케이션를 실행하기 위한 라이브러리를 설치한 이후에 실행해야합니다.
-> pip install -r requirements_gui.txt
-> python mask_detector_gui.py
+> python run_app.py
 ```
 ![GUI](./resource/readme/mask_detector_gui.png)<br/>
 실시간 카메라 버튼을 클릭하여 연결된 카메라로부터 마스크 탐지를 하거나 동영상 파일에서 마스크 팀지가 가능합니다.
 
 ## API 사용방법
+구체적인 클래스와 각 메서드의 기능에 대해서 알아보고 싶다면 [API 문서](./docs/API.md)를 참고하세요.<br/>
 ### 사진에서 마스크를 쓴 얼굴을 찾기
 전체 예제는 [예제](examples/detect_image_masked_face.py)를 참고하세요.
 1. 분석할 이미지를 로드합니다
