@@ -6,6 +6,17 @@ cottonbro님의 동영상, 출처: Pexels<br/>
 
 Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
 
+## Dependencies
+- [Tensorflow](https://github.com/tensorflow/tensorflow)
+- [Pytorch](https://github.com/pytorch/pytorch)
+- [Scikit-Learn](https://github.com/scikit-learn/scikit-learn)
+- [Numpy](https://github.com/numpy/numpy)
+- [Matplotlib](https://github.com/matplotlib/matplotlib)
+- [Python Image Library](https://github.com/python-pillow/Pillow)
+- [opencv-python](https://github.com/opencv/opencv-python)
+- [Pytest](https://github.com/pytest-dev/pytest)
+- [PyQT5](https://www.riverbankcomputing.com/software/pyqt/)
+- [facenet-pytorch](https://github.com/timesler/facenet-pytorch)
 ## Installation
 먼저 저장소를 clone 한 뒤, 패키지 매니저 [pip](https://pip.pypa.io/en/stable/) 를 이용해서 필요한 라이브러리를 설치합니다.
 
@@ -134,9 +145,13 @@ George Morina님의 동영상, 출처: Pexels<br/>
 Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
 ## 모델 학습하기
-새로운 데이터를 확보하거나 다른 모델로 마스크 분류기를 직접 학습하고 싶을 경우 아래 문서와 예제를 참고한다면 쉽고 빠르게 학습할 수 있습니다.<br/>
+새로운 데이터를 확보하거나 다른 모델로 마스크 분류기를 직접 학습하고 싶을 경우 아래 문서와 예제를 참고한다면 쉽고 빠르게 학습할 수 있습니다
+
 [모델학습 안내문서](./docs/TRAINING.md)
 
 ## Datasets
 - LFW Face Database: http://vis-www.cs.umass.edu/lfw/
-- Real-World Masked Face Dataset，RMFD: https://github.com/X-zhangyang/Real-World-Masked-Face-Dataset
+- Real-World Masked Face Dataset, RMFD: https://github.com/X-zhangyang/Real-World-Masked-Face-Dataset
+
+## License
+[MIT License](./LICENSE.md)
