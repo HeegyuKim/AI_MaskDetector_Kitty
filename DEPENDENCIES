@@ -1,0 +1,10 @@
+tensorflow 2.6.0 Apache-2.0 License
+torch 1.9.0 https://github.com/pytorch/pytorch/blob/master/LICENSE
+scikit-learn 0.24.2 BSD-3-Clause License
+pillow 8.3.2 open source HPND License
+numpy 1.19.5 BSD-3-Clause License
+matplotlib 3.3.4 PSF License
+opencv-python 4.5.3.56 MIT License
+pytest 6.2.5 MIT License
+PyQT5 5.15.4 GPLv3
+facenet-pytorch 2.5.2 MIT License
