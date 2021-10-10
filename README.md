@@ -1,7 +1,7 @@
 # Mask Detector
 Mask Detector는 사진과 영상에서 마스크를 착용하지 않은 사람을 찾아 표시해주는 파이썬 어플리케이션 및 API를 제공합니다.<br/>
 
-![GIF](./resource/readme/readme_info_01.gif)<br/>
+![GIF](./resource/readme/readme_info_02.gif)<br/>
 cottonbro님의 동영상, 출처: Pexels<br/>
 
 Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
