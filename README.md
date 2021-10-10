@@ -6,6 +6,17 @@ cottonbro님의 동영상, 출처: Pexels<br/>
 
 Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
 
+## Dependencies
+- [Tensorflow](https://github.com/tensorflow/tensorflow)
+- [Pytorch](https://github.com/pytorch/pytorch)
+- [Scikit-Learn](https://github.com/scikit-learn/scikit-learn)
+- [Numpy](https://github.com/numpy/numpy)
+- [Matplotlib](https://github.com/matplotlib/matplotlib)
+- [Python Image Library](https://github.com/python-pillow/Pillow)
+- [opencv-python](https://github.com/opencv/opencv-python)
+- [Pytest](https://github.com/pytest-dev/pytest)
+- [PyQT5](https://www.riverbankcomputing.com/software/pyqt/)
+- [facenet-pytorch](https://github.com/timesler/facenet-pytorch)
 ## Installation
 먼저 저장소를 clone 한 뒤, 패키지 매니저 [pip](https://pip.pypa.io/en/stable/) 를 이용해서 필요한 라이브러리를 설치합니다.
 
