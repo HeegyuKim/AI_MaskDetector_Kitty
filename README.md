@@ -153,5 +153,8 @@ Everett Bumstead님의 동영상, 출처: Pexels<br/>
 - LFW Face Database: http://vis-www.cs.umass.edu/lfw/
 - Real-World Masked Face Dataset, RMFD: https://github.com/X-zhangyang/Real-World-Masked-Face-Dataset
 
+##  Github Repository 내 저장소명 규칙
+- Github Repository 내의 모든 코드는 Front-end 임을 명시 합니다.<br/>
+https://osam.kr/hackathon/hacCommunity/hackathonNotice?m=v&wdnId=13
 ## License
 [MIT License](./LICENSE.md)
