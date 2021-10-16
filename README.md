@@ -27,7 +27,7 @@ pip install -r requirements.txt
 ```
 
 ## GUI 어플리케이션 사용방법
-카메라 혹은 동영상 파일을 선택하여 기능을 사용해볼 수 있는 GUI 어플리케이션은 run.app.py를 실행하여 사용할 수 있습니다.
+카메라 혹은 동영상 파일을 선택하여 기능을 사용해볼 수 있는 GUI 어플리케이션은 run_app.py를 실행하여 사용할 수 있습니다.
 ```bash
 > python run_app.py
 ```
