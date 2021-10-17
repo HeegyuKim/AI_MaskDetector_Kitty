@@ -87,18 +87,16 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
   
 ### [detect_image.py](detect_image.py)를 사용하기
 파이썬 코드를 사용하지 않고 커맨드 명령을 이용해 기능을 활용해보는 방법도 있습니다.
-<br/>
+
 파일 하나를 읽어서 분석한 이미지를 저장
 ```
 > python -m mask_detector.detect_image resource/sample/image/pexels-gustavo-fring-4127449.jpg detected.jpg
 ```
-<br/>
+
 images/ 폴더에 있는 파일들의 분석이미지가 images-detected/ 에 저장됩니다
 ```
-# 
 > python -m mask_detector.detect_image resource/sample/image/ images-detected/
 ```
-<br>
 
 디텍터로 OpenCV를 사용
 ```
