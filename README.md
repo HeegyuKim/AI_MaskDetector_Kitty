@@ -7,7 +7,8 @@ cottonbro님의 동영상, 출처: Pexels<br/>
 Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
 
 ## Dependencies
-- [Tensorflow](https://github.com/tensorflow/tensorflow), Apache 2.0, [License](https://github.com/tensorflow/tensorflow/blob/master/LICENSE)
+[License List](https://github.com/osamhack2021/AI_MaskDetector_Kitty/blob/master/DEPENDENCIES)
+- [Tensorflow](https://github.com/tensorflow/tensorflow)
 - [Pytorch](https://github.com/pytorch/pytorch)
 - [Scikit-Learn](https://github.com/scikit-learn/scikit-learn)
 - [Numpy](https://github.com/numpy/numpy)
@@ -100,14 +101,14 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 ```
 <br>
 
-폴더내 전부
+폴더 내 전부
 ```
 # images/ 폴더에 있는 파일들의 분석결과가 images-detected/ 에 저장됩니다
 > python -m mask_detector.detect_image images/ images-detected/
 ```
 <br>
 
-디텍토로 openCV를 사용
+디텍터로 openCV를 사용
 ```
 # detector에 opencv를 쓰고싶다면
 > python -m mask_detector.detect_image images/ images-detected/ --detector=opencv
@@ -172,6 +173,6 @@ Everett Bumstead님의 동영상, 출처: Pexels<br/>
 
 ##  Github Repository 내 저장소명 규칙
 - Github Repository 내의 모든 코드는 Front-end 임을 명시 합니다.<br/>
-https://osam.kr/hackathon/hacCommunity/hackathonNotice?m=v&wdnId=13
+https://bre.is/jxkd4o6V
 ## License
 [MIT License](./LICENSE.md)
