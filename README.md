@@ -138,13 +138,11 @@ OpenCV와 MaskedFaceDrawer를 활용한다면 가능합니다. [동영상에서 
 
 영상 하나를 읽어서 분석 후 결과를 video-detected.mp4에 저장
 ```
-# 
 > python -m mask_detector.detect_video resource/sample/video/pexels-rodnae-productions-8363849.mp4 video-detected.mp4
 ```
 
 videos/ 폴더에 있는 파일들의 분석하고 만든 영상을 videos-detected/ 에 저장됩니다
 ```
-# 
 > python -m mask_detector.detect_video resource/sample/video/ videos-detected/
 ```
 
