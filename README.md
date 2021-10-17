@@ -87,20 +87,20 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
   
 ### [detect_image.py](detect_image.py)를 사용하기
 파이썬 코드를 사용하지 않고 커맨드 명령을 이용해 기능을 활용해보는 방법도 있습니다.
-
-파일 하나 
+<br/>
+파일 하나를 읽어서 분석한 이미지를 저장
 ```
 > python -m mask_detector.detect_image resource/sample/image/pexels-gustavo-fring-4127449.jpg detected.jpg
 ```
 <br/>
-폴더 내 모든 파일
+images/ 폴더에 있는 파일들의 분석이미지가 images-detected/ 에 저장됩니다
 ```
-# images/ 폴더에 있는 파일들의 분석결과가 images-detected/ 에 저장됩니다
+# 
 > python -m mask_detector.detect_image resource/sample/image/ images-detected/
 ```
 <br>
 
-디텍터로 openCV를 사용
+디텍터로 OpenCV를 사용
 ```
 # detector에 opencv를 쓰고싶다면
 > python -m mask_detector.detect_image resource/sample/image/ images-detected/ --detector=opencv
@@ -138,14 +138,20 @@ if ret:
 
 OpenCV와 MaskedFaceDrawer를 활용한다면 가능합니다. [동영상에서 마스크 쓴 얼굴을 찾아서 표시하고 저장하는 예제](examples/detect_video_masked_face.py)를 참고하여 직접 결과물을 만들거나, detect_video.py를 이용하여 기능을 확인할 수 있습니다.<br/><br/>
 
+영상 하나를 읽어서 분석 후 결과를 video-detected.mp4에 저장
 ```
-# video.mp4를 읽어서 분석 후 결과를 video-detected.mp4에 저장합니다.
+# 
 > python -m mask_detector.detect_video resource/sample/video/pexels-rodnae-productions-8363849.mp4 video-detected.mp4
-
-# videos/ 폴더에 있는 파일들의 분석결과가 videos-detected/ 에 저장됩니다
+```
+<br/>
+videos/ 폴더에 있는 파일들의 분석하고 만든 영상을 videos-detected/ 에 저장됩니다
+```
+# 
 > python -m mask_detector.detect_video resource/sample/video/ videos-detected/
-
-# detector에 opencv를 쓰고싶다면
+```
+<br/>
+디텍터로 OpenCV를 사용
+``` 
 > python -m mask_detector.detect_video resource/sample/video/ videos-detected/ --detector=opencv
 ```
 #### 결과물 예시
