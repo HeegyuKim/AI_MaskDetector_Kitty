@@ -7,7 +7,7 @@ cottonbro님의 동영상, 출처: Pexels<br/>
 Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
 
 ## Dependencies
-- [Tensorflow](https://github.com/tensorflow/tensorflow)
+- [Tensorflow](https://github.com/tensorflow/tensorflow), Apache 2.0, [License](https://github.com/tensorflow/tensorflow/blob/master/LICENSE)
 - [Pytorch](https://github.com/pytorch/pytorch)
 - [Scikit-Learn](https://github.com/scikit-learn/scikit-learn)
 - [Numpy](https://github.com/numpy/numpy)
