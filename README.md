@@ -86,16 +86,33 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
   
 ### [detect_image.py](detect_image.py)를 사용하기
 파이썬 코드를 사용하지 않고 커맨드 명령을 이용해 기능을 활용해보는 방법도 있습니다.
+
+파일 하나 
+```
+> python -m mask_detector.detect_image image.jpg
+```
+<br>
+
+파일 여러개
 ```
 # 파일 하나를 분석해서 저장함.
 > python -m mask_detector.detect_image image.jpg image-detected.jpg
+```
+<br>
 
+폴더내 전부
+```
 # images/ 폴더에 있는 파일들의 분석결과가 images-detected/ 에 저장됩니다
 > python -m mask_detector.detect_image images/ images-detected/
+```
+<br>
 
+디텍토로 openCV를 사용
+```
 # detector에 opencv를 쓰고싶다면
 > python -m mask_detector.detect_image images/ images-detected/ --detector=opencv
 ```
+
 
 ## 동영상에서 마스크 쓴 얼굴을 찾아보기
 1. OpenCV를 이용하여 동영상 혹은 카메라에서 불러올 준비를 합니다.
