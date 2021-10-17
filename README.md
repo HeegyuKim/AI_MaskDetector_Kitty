@@ -1,9 +1,8 @@
 # Mask Detector
 Mask Detector는 사진과 영상에서 마스크를 착용하지 않은 사람을 찾아 표시해주는 파이썬 어플리케이션 및 API를 제공합니다.<br/>
 
-![GIF](./resource/readme/readme_info_02.gif)<br/>
+[main](./resource/readme/main.png)
 cottonbro님의 동영상, 출처: Pexels<br/>
-
 Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
 
 ## Dependencies
@@ -32,7 +31,8 @@ $ pip install -r requirements.txt
 ```bash
 > python run_app.py
 ```
-![GUI](./resource/readme/mask_detector_gui.png)<br/>
+![GIF](./resource/readme/readme_info_02.gif)<br/>
+
 실시간 카메라 버튼을 클릭하여 연결된 카메라로부터 마스크 탐지를 하거나 동영상 파일에서 마스크 팀지가 가능합니다.
 
 ## API 사용방법
@@ -42,7 +42,7 @@ $ pip install -r requirements.txt
 1. 분석할 이미지를 로드합니다
 ```python3
 import cv2
-image_path = "./sample/image/pexels-gustavo-fring-4127449.jpg"
+image_path = "./resource/sample/image/pexels-gustavo-fring-4127449.jpg"
 image = cv2.imread(image_path)
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 ```
@@ -90,28 +90,20 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 
 파일 하나 
 ```
-> python -m mask_detector.detect_image image.jpg
+> python -m mask_detector.detect_image resource/sample/image/pexels-gustavo-fring-4127449.jpg detected.jpg
 ```
-<br>
-
-파일 여러개
-```
-# 파일 하나를 분석해서 저장함.
-> python -m mask_detector.detect_image image.jpg image-detected.jpg
-```
-<br>
-
-폴더 내 전부
+<br/>
+폴더 내 모든 파일
 ```
 # images/ 폴더에 있는 파일들의 분석결과가 images-detected/ 에 저장됩니다
-> python -m mask_detector.detect_image images/ images-detected/
+> python -m mask_detector.detect_image resource/sample/image/ images-detected/
 ```
 <br>
 
 디텍터로 openCV를 사용
 ```
 # detector에 opencv를 쓰고싶다면
-> python -m mask_detector.detect_image images/ images-detected/ --detector=opencv
+> python -m mask_detector.detect_image resource/sample/image/ images-detected/ --detector=opencv
 ```
 
 
@@ -121,7 +113,7 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 import cv2
 
 in_cap = cv2.VideoCapture(0) # 카메라에서 불러온다면
-# in_cap = cv2.VideoCapture("movie.mp4") # 파일에서 불러온다면
+# in_cap = cv2.VideoCapture("resource/sample/video/pexels-rodnae-productions-8363849.mp4") # 파일에서 불러온다면
 
 if not in_cap.isOpened(): 
     print(f"파일을 열 수 없습니다: {input_file}")
@@ -148,13 +140,13 @@ OpenCV와 MaskedFaceDrawer를 활용한다면 가능합니다. [동영상에서 
 
 ```
 # video.mp4를 읽어서 분석 후 결과를 video-detected.mp4에 저장합니다.
-> python -m mask_detector.detect_video video.mp4 video-detected.mp4
+> python -m mask_detector.detect_video resource/sample/video/pexels-rodnae-productions-8363849.mp4 video-detected.mp4
 
 # videos/ 폴더에 있는 파일들의 분석결과가 videos-detected/ 에 저장됩니다
-> python -m mask_detector.detect_video videos/ videos-detected/
+> python -m mask_detector.detect_video resource/sample/video/ videos-detected/
 
 # detector에 opencv를 쓰고싶다면
-> python -m mask_detector.detect_video videos/ videos-detected/ --detector=opencv
+> python -m mask_detector.detect_video resource/sample/video/ videos-detected/ --detector=opencv
 ```
 #### 결과물 예시
 ![GIF](./resource/readme/pexels-george.gif)<br/>
