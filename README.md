@@ -141,13 +141,13 @@ OpenCV와 MaskedFaceDrawer를 활용한다면 가능합니다. [동영상에서 
 # 
 > python -m mask_detector.detect_video resource/sample/video/pexels-rodnae-productions-8363849.mp4 video-detected.mp4
 ```
-<br/>
+
 videos/ 폴더에 있는 파일들의 분석하고 만든 영상을 videos-detected/ 에 저장됩니다
 ```
 # 
 > python -m mask_detector.detect_video resource/sample/video/ videos-detected/
 ```
-<br/>
+
 디텍터로 OpenCV를 사용
 ``` 
 > python -m mask_detector.detect_video resource/sample/video/ videos-detected/ --detector=opencv
