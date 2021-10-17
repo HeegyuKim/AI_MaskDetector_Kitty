@@ -21,9 +21,9 @@ Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김�
 먼저 저장소를 clone 한 뒤, 패키지 매니저 [pip](https://pip.pypa.io/en/stable/) 를 이용해서 필요한 라이브러리를 설치합니다.
 
 ```bash
-git clone https://github.com/osamhack2021/AI_MaskDetector_Kitty.git
-cd AI_MaskDetector_Kitty
-pip install -r requirements.txt
+$ git clone https://github.com/osamhack2021/AI_MaskDetector_Kitty.git
+$ cd AI_MaskDetector_Kitty
+$ pip install -r requirements.txt
 ```
 
 ## GUI 어플리케이션 사용방법
