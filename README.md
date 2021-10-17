@@ -1,23 +1,22 @@
-# Mask Detector
-Mask Detector는 사진과 영상에서 마스크를 착용하지 않은 사람을 찾아 표시해주는 파이썬 어플리케이션 및 API를 제공합니다.<br/>
+# Mask Detector API
+Mask Detector API는 사진과 영상에서 마스크를 착용하지 않은 사람을 찾아 표시해주는 파이썬 API를 제공합니다.<br/>
 
-![GIF](./resource/readme/readme_info_02.gif)<br/>
+![main](./resource/readme/main.png)<br/>
 cottonbro님의 동영상, 출처: Pexels<br/>
-
 Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
 
 ## Dependencies
 [License List](https://github.com/osamhack2021/AI_MaskDetector_Kitty/blob/master/DEPENDENCIES)
-- [Tensorflow](https://github.com/tensorflow/tensorflow)
-- [Pytorch](https://github.com/pytorch/pytorch)
-- [Scikit-Learn](https://github.com/scikit-learn/scikit-learn)
-- [Numpy](https://github.com/numpy/numpy)
-- [Matplotlib](https://github.com/matplotlib/matplotlib)
-- [Python Image Library](https://github.com/python-pillow/Pillow)
-- [opencv-python](https://github.com/opencv/opencv-python)
-- [Pytest](https://github.com/pytest-dev/pytest)
-- [PyQT5](https://www.riverbankcomputing.com/software/pyqt/)
-- [facenet-pytorch](https://github.com/timesler/facenet-pytorch)
+- [Tensorflow 2.6.0](https://github.com/tensorflow/tensorflow)
+- [Pytorch 1.9.0](https://github.com/pytorch/pytorch)
+- [Scikit-Learn 0.24.2](https://github.com/scikit-learn/scikit-learn)
+- [Numpy 1.19.5](https://github.com/numpy/numpy)
+- [Matplotlib 3.3.4](https://github.com/matplotlib/matplotlib)
+- [Python Image Library 8.3.2 ](https://github.com/python-pillow/Pillow)
+- [opencv-python 4.5.3.56](https://github.com/opencv/opencv-python)
+- [Pytest  6.2.5](https://github.com/pytest-dev/pytest)
+- [PyQT5 5.15.4](https://www.riverbankcomputing.com/software/pyqt/)
+- [facenet-pytorch 2.5.2](https://github.com/timesler/facenet-pytorch)
 ## Installation
 먼저 저장소를 clone 한 뒤, 패키지 매니저 [pip](https://pip.pypa.io/en/stable/) 를 이용해서 필요한 라이브러리를 설치합니다.
 
@@ -32,7 +31,8 @@ $ pip install -r requirements.txt
 ```bash
 > python run_app.py
 ```
-![GUI](./resource/readme/mask_detector_gui.png)<br/>
+![GIF](./resource/readme/readme_info_02.gif)<br/>
+
 실시간 카메라 버튼을 클릭하여 연결된 카메라로부터 마스크 탐지를 하거나 동영상 파일에서 마스크 팀지가 가능합니다.
 
 ## API 사용방법
@@ -42,7 +42,7 @@ $ pip install -r requirements.txt
 1. 분석할 이미지를 로드합니다
 ```python3
 import cv2
-image_path = "./sample/image/pexels-gustavo-fring-4127449.jpg"
+image_path = "./resource/sample/image/pexels-gustavo-fring-4127449.jpg"
 image = cv2.imread(image_path)
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 ```
@@ -88,30 +88,20 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 ### [detect_image.py](detect_image.py)를 사용하기
 파이썬 코드를 사용하지 않고 커맨드 명령을 이용해 기능을 활용해보는 방법도 있습니다.
 
-파일 하나 
+파일 하나를 읽어서 분석한 이미지를 저장
 ```
-> python -m mask_detector.detect_image image.jpg
+> python -m mask_detector.detect_image resource/sample/image/pexels-gustavo-fring-4127449.jpg detected.jpg
 ```
-<br>
 
-파일 여러개
+images/ 폴더에 있는 파일들의 분석이미지가 images-detected/ 에 저장됩니다
 ```
-# 파일 하나를 분석해서 저장함.
-> python -m mask_detector.detect_image image.jpg image-detected.jpg
+> python -m mask_detector.detect_image resource/sample/image/ images-detected/
 ```
-<br>
 
-폴더 내 전부
-```
-# images/ 폴더에 있는 파일들의 분석결과가 images-detected/ 에 저장됩니다
-> python -m mask_detector.detect_image images/ images-detected/
-```
-<br>
-
-디텍터로 openCV를 사용
+디텍터로 OpenCV를 사용
 ```
 # detector에 opencv를 쓰고싶다면
-> python -m mask_detector.detect_image images/ images-detected/ --detector=opencv
+> python -m mask_detector.detect_image resource/sample/image/ images-detected/ --detector=opencv
 ```
 
 
@@ -121,7 +111,7 @@ Photo by <a href="https://unsplash.com/@victorhwn725?utm_source=unsplash&utm_med
 import cv2
 
 in_cap = cv2.VideoCapture(0) # 카메라에서 불러온다면
-# in_cap = cv2.VideoCapture("movie.mp4") # 파일에서 불러온다면
+# in_cap = cv2.VideoCapture("resource/sample/video/pexels-rodnae-productions-8363849.mp4") # 파일에서 불러온다면
 
 if not in_cap.isOpened(): 
     print(f"파일을 열 수 없습니다: {input_file}")
@@ -146,15 +136,19 @@ if ret:
 
 OpenCV와 MaskedFaceDrawer를 활용한다면 가능합니다. [동영상에서 마스크 쓴 얼굴을 찾아서 표시하고 저장하는 예제](examples/detect_video_masked_face.py)를 참고하여 직접 결과물을 만들거나, detect_video.py를 이용하여 기능을 확인할 수 있습니다.<br/><br/>
 
+영상 하나를 읽어서 분석 후 결과를 video-detected.mp4에 저장
 ```
-# video.mp4를 읽어서 분석 후 결과를 video-detected.mp4에 저장합니다.
-> python -m mask_detector.detect_video video.mp4 video-detected.mp4
+> python -m mask_detector.detect_video resource/sample/video/pexels-rodnae-productions-8363849.mp4 video-detected.mp4
+```
 
-# videos/ 폴더에 있는 파일들의 분석결과가 videos-detected/ 에 저장됩니다
-> python -m mask_detector.detect_video videos/ videos-detected/
+videos/ 폴더에 있는 파일들의 분석하고 만든 영상을 videos-detected/ 에 저장됩니다
+```
+> python -m mask_detector.detect_video resource/sample/video/ videos-detected/
+```
 
-# detector에 opencv를 쓰고싶다면
-> python -m mask_detector.detect_video videos/ videos-detected/ --detector=opencv
+디텍터로 OpenCV를 사용
+``` 
+> python -m mask_detector.detect_video resource/sample/video/ videos-detected/ --detector=opencv
 ```
 #### 결과물 예시
 ![GIF](./resource/readme/pexels-george.gif)<br/>
