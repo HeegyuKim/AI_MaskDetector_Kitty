@@ -7,16 +7,16 @@ Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김�
 
 ## Dependencies
 [License List](https://github.com/osamhack2021/AI_MaskDetector_Kitty/blob/master/DEPENDENCIES)
-- [Tensorflow](https://github.com/tensorflow/tensorflow)
-- [Pytorch](https://github.com/pytorch/pytorch)
-- [Scikit-Learn](https://github.com/scikit-learn/scikit-learn)
-- [Numpy](https://github.com/numpy/numpy)
-- [Matplotlib](https://github.com/matplotlib/matplotlib)
-- [Python Image Library](https://github.com/python-pillow/Pillow)
-- [opencv-python](https://github.com/opencv/opencv-python)
-- [Pytest](https://github.com/pytest-dev/pytest)
-- [PyQT5](https://www.riverbankcomputing.com/software/pyqt/)
-- [facenet-pytorch](https://github.com/timesler/facenet-pytorch)
+- [Tensorflow 2.6.0](https://github.com/tensorflow/tensorflow)
+- [Pytorch 1.9.0](https://github.com/pytorch/pytorch)
+- [Scikit-Learn 0.24.2](https://github.com/scikit-learn/scikit-learn)
+- [Numpy 1.19.5](https://github.com/numpy/numpy)
+- [Matplotlib 3.3.4](https://github.com/matplotlib/matplotlib)
+- [Python Image Library 8.3.2 ](https://github.com/python-pillow/Pillow)
+- [opencv-python 4.5.3.56](https://github.com/opencv/opencv-python)
+- [Pytest  6.2.5](https://github.com/pytest-dev/pytest)
+- [PyQT5 5.15.4](https://www.riverbankcomputing.com/software/pyqt/)
+- [facenet-pytorch 2.5.2](https://github.com/timesler/facenet-pytorch)
 ## Installation
 먼저 저장소를 clone 한 뒤, 패키지 매니저 [pip](https://pip.pypa.io/en/stable/) 를 이용해서 필요한 라이브러리를 설치합니다.
 
