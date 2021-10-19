@@ -1,7 +1,7 @@
 # Mask Detector API
 Mask Detector API는 사진과 영상에서 마스크를 착용하지 않은 사람을 찾아 표시해주는 파이썬 API를 제공합니다.<br/>
 
-![main](./resource/readme/main.png)<br/>
+![main](./resource/readme/main1.jpg)<br/>
 cottonbro님의 동영상, 출처: Pexels<br/>
 Developed by [김영수(Young-Soo-Kim)](https://github.com/Young-Soo-Kim), [김희규(HeegyuKim)](https://github.com/HeegyuKim)
 
